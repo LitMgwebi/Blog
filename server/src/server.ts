@@ -7,8 +7,8 @@ import bodyParser from "body-parser";
 //* Directory Imports
 import log from "./config/logging";
 import config from "./config/config";
-import indexRouter from "./Controller/indexController";
-import blogRouter from "./Controller/blogController";
+import indexRouter from "./Controllers/indexController";
+import blogRouter from "./Controllers/blogController";
 
 //* Server setup
 const port: number = config.port;

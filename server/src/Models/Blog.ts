@@ -1,13 +1,14 @@
-import {Schema, model} from "mongoose";
+import {Schema, model, ObjectId} from "mongoose";
 
 interface IBlog {
-    title: string;
-    blog: string;
-    uploadDate: number;
-    author: string;
+     title: string;
+     blog: string;
+     uploadDate: Date;
+     author: string;
 }
 
 const blogSchema = new Schema<IBlog>({
+
     title: {
         type: String,
         required: [true, "Please enter the title of this entry"]
@@ -17,7 +18,7 @@ const blogSchema = new Schema<IBlog>({
         required: [true, "Please enter the blog for this entry"]
    },
    uploadDate: {
-        type: Number,
+        type: Date,
    },
    author: {
         type: String,

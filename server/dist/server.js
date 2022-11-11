@@ -10,8 +10,8 @@ const body_parser_1 = __importDefault(require("body-parser"));
 //* Directory Imports
 const logging_1 = __importDefault(require("./config/logging"));
 const config_1 = __importDefault(require("./config/config"));
-const indexController_1 = __importDefault(require("./Controller/indexController"));
-const blogController_1 = __importDefault(require("./Controller/blogController"));
+const indexController_1 = __importDefault(require("./Controllers/indexController"));
+const blogController_1 = __importDefault(require("./Controllers/blogController"));
 //* Server setup
 const port = config_1.default.port;
 const host = config_1.default.host;
