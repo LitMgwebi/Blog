@@ -102,12 +102,12 @@ router.put('/edit/:id', async (req: Request, res: Response) => {
 //#region DELETE
 
 // Get a record to delete
-router.get("/delete/:id", (req: Request, res: Response) => {
+router.get("/remove/:id", (req: Request, res: Response) => {
     getOneRecord(req, res);
 });
 
 // Delete record
-router.delete("/delete/:id", async(req: Request, res: Response) => {
+router.delete("/remove/:id", async(req: Request, res: Response) => {
     let blog: any = null;
     try{
         blog = await Blog.findById(req.params.id);

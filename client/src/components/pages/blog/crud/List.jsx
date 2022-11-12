@@ -22,6 +22,7 @@ function List() {
     return (
         <div className="listPage">
             <h1>Blogs</h1>
+            <Link to="/add">Add</Link>
             {posts.map((post, i) =>{
                 return(
                     <div className="post" key={post._id}>
