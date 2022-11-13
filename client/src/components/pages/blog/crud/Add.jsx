@@ -11,6 +11,8 @@ function Add() {
     const [title, setTitle] = useState("");
     const [blog, setBlog] = useState("");
     const [author, setAuthor] = useState("");
+    const [tagline, setTagline] = useState("");
+
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -20,7 +22,8 @@ function Add() {
             title: title,
             blog: blog,
             uploadDate: currentDate,
-            author: author
+            author: author,
+            tagline: tagline
         }
 
         axios.post("http://localhost:2550/add", userData)
@@ -55,6 +58,17 @@ function Add() {
                                 setBlog(e.target.value)
                             }} 
                         /> 
+                    </div>
+                    
+                    <div className="taglineInput">
+                        <label>Enter tagline</label>
+                        <input 
+                            type="text"
+                            value={tagline}
+                            onChange={(e) => {
+                                setTagline(e.target.value);
+                            }}  
+                        />
                     </div>
 
                     <div className="authorInput">

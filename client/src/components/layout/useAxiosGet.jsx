@@ -7,6 +7,7 @@ const useAxiosGet = (url) => {
     const [blog, setBlog] = useState("");
     const [author, setAuthor] = useState("");
     const [uploadDate, setUploadDate] = useState("");
+    const [tagline, setTagline] = useState("");
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
 
@@ -23,6 +24,7 @@ const useAxiosGet = (url) => {
                     setBlog(res.data.blog.blog);
                     setAuthor(res.data.blog.author);
                     setUploadDate(res.data.blog.uploadDate);
+                    setTagline(res.data.blog.tagline);
 
                     setIsPending(false);
                     setError(null);
@@ -39,10 +41,12 @@ const useAxiosGet = (url) => {
         blog: blog,
         uploadDate: uploadDate,
         author: author,
+        tagline: tagline,
         setTitle: setTitle,
         setAuthor: setAuthor,
         setBlog: setBlog,
-        setUploadDate: setUploadDate
+        setUploadDate: setUploadDate,
+        setTagline: setTagline
     }
 
     return {payload, isPending, error}

@@ -28,8 +28,7 @@ function List() {
                     <div className="post" key={post._id}>
                         <h3>{post.title}</h3>
                         <h5>{post.author}</h5>
-                        <p>{post.blog}</p>
-                        <p>{post.uploadDate}</p>
+                        <p>{post.tagline}</p>
                         <Link
                             to={`/record/${post._id}`}
                             state={{stateId: post._id}}

@@ -13,7 +13,7 @@ function Edit() {
     const [status, setStatus] = useState("");
 
     const {payload, isPending, error} = useAxiosGet(`http://localhost:2550/edit/${id}`);
-    const {title, blog, author, uploadDate, setTitle, setBlog, setAuthor} = payload;
+    const {title, blog, author, uploadDate, tagline, setTitle, setBlog, setAuthor, setTagline} = payload;
 
     function handleUpdate(e) {
         e.preventDefault();
@@ -60,6 +60,17 @@ function Edit() {
                             }} 
                     />
                </div>
+                
+               <div className="taglineInput">
+                        <label>Enter tagline</label>
+                        <input 
+                            type="text"
+                            value={tagline}
+                            onChange={(e) => {
+                                setTagline(e.target.value);
+                            }}  
+                        />
+                </div>
 
                <div className="authorInput">
                     <input 

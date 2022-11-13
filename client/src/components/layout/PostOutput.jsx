@@ -7,6 +7,8 @@ function PostOutput({post, title}){
             <br/>
             <h3>{post.author}</h3>
             <br/>
+            <p>{post.tagline}</p>
+            <br/>
             <p>{post.blog}</p>
             <br/>
             <p>{post.uploadDate}</p>

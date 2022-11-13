@@ -36,12 +36,14 @@ router.get("/record/:id", async (req: Request, res: Response) => {
 
 
 //#region POST
+
 router.post("/add", async (req, res) => {
     const blog: any = new Blog({
         title: req.body.title,
         blog: req.body.blog,
         uploadDate: req.body.uploadDate,
         author: req.body.author,
+        tagline: req.body.tagline,
     });
 
     try {
@@ -60,6 +62,7 @@ router.post("/add", async (req, res) => {
         });
     }
 });
+
 //#endregion
 
 
@@ -80,6 +83,7 @@ router.put('/edit/:id', async (req: Request, res: Response) => {
         blog.blog = req.body.blog;
         blog.uploadDate = req.body.uploadDate;
         blog.author = req.body.author;
+        blog.tagline = req.body.tagline;
 
         await blog.save();
         res.status(201).send({
