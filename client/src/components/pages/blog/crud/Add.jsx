@@ -36,7 +36,7 @@ function Add() {
         navigate("/list");
     }
     return(
-        <div className="Add">
+        <div className="contentContainer">
             <h1>Create</h1>
                 <form method="POST" onSubmit={handleSubmit}>
                     <div className="titleInput">
