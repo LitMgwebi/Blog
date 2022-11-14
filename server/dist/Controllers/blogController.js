@@ -30,7 +30,23 @@ router.get('/list', async (req, res) => {
 });
 // Get 1
 router.get("/record/:id", async (req, res) => {
-    getOneRecord(req, res);
+    let blog = null;
+    try {
+        blog = await Blog_1.default.findById(req.params.id);
+        res.status(201).send({
+            blog: blog,
+            error: null,
+            message: "Record retrieval successful"
+        });
+    }
+    catch (err) {
+        logging_1.default.error(err.message);
+        res.status(400).send({
+            blog: blog,
+            error: err.message,
+            message: "Record retrieval failed"
+        });
+    }
 });
 //#endregion
 //#region POST
@@ -40,6 +56,7 @@ router.post("/add", async (req, res) => {
         blog: req.body.blog,
         uploadDate: req.body.uploadDate,
         author: req.body.author,
+        tagline: req.body.tagline,
     });
     try {
         await blog.save();
@@ -60,11 +77,6 @@ router.post("/add", async (req, res) => {
 });
 //#endregion
 //#region PUT
-//Get record to update
-router.get("/edit/:id", (req, res) => {
-    getOneRecord(req, res);
-});
-//Edit record
 router.put('/edit/:id', async (req, res) => {
     let blog = null;
     try {
@@ -73,6 +85,7 @@ router.put('/edit/:id', async (req, res) => {
         blog.blog = req.body.blog;
         blog.uploadDate = req.body.uploadDate;
         blog.author = req.body.author;
+        blog.tagline = req.body.tagline;
         await blog.save();
         res.status(201).send({
             blog: blog,
@@ -91,12 +104,7 @@ router.put('/edit/:id', async (req, res) => {
 });
 //#endregion
 //#region DELETE
-// Get a record to delete
-router.get("/delete/:id", (req, res) => {
-    getOneRecord(req, res);
-});
-// Delete record
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/remove/:id", async (req, res) => {
     let blog = null;
     try {
         blog = await Blog_1.default.findById(req.params.id);
@@ -111,26 +119,5 @@ router.delete("/delete/:id", async (req, res) => {
         });
     }
 });
-//#endregion
-//#region Helper functions
-const getOneRecord = async (req, res) => {
-    let blog = null;
-    try {
-        blog = await Blog_1.default.findById(req.params.id);
-        res.status(201).send({
-            blog: blog,
-            error: null,
-            message: "Record retrieval successful"
-        });
-    }
-    catch (err) {
-        logging_1.default.error(err.message);
-        res.status(400).send({
-            blog: blog,
-            error: err.message,
-            message: "Record retrieval failed"
-        });
-    }
-};
 //#endregion
 exports.default = router;

@@ -12,7 +12,7 @@ function Edit() {
     const id = location.state.stateId;
     const [status, setStatus] = useState("");
 
-    const {payload, isPending, error} = useAxiosGet(`http://localhost:2550/edit/${id}`);
+    const {payload, isPending, error, setError} = useAxiosGet(`/blog/record/${id}`);
     const {title, blog, author, uploadDate, tagline, setTitle, setBlog, setAuthor, setTagline} = payload;
 
     function handleUpdate(e) {
@@ -23,21 +23,24 @@ function Edit() {
             title:title,
             blog: blog,
             uploadDate: uploadDate,
-            author: author
+            author: author,
+            tagline: tagline
         }
 
-        axios.put(`http://localhost:2550/edit/${id}`, userData)
+        axios.put(`/blog/edit/${id}`, userData)
             .then((res) => {
                 setStatus(res.status)
+                setError(null);
             }).catch((error) => {
                 log.error(error.message)
+                setError(error.message);
             });
 
         navigate(`/list`);
     }
     return(
         <div className="Edit">
-            {error && <div>{error}</div>}
+            {error && <div className="error">{error}</div>}
             {isPending && <div>Loading...</div>}
 
             <h1>Update</h1>

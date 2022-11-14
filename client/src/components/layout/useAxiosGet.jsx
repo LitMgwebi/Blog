@@ -49,7 +49,7 @@ const useAxiosGet = (url) => {
         setTagline: setTagline
     }
 
-    return {payload, isPending, error}
+    return {payload, isPending, error, setError}
 }
 
 export default useAxiosGet;

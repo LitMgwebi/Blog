@@ -19,12 +19,11 @@
 .card{
   width: 25rem;
   height: 10rem;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 30% 50% 20%;
   border: 0.1em solid #000000
 }
 .image{
-  width: 40%;
   height: 100%;
   display: flex;
   justify-content: center;

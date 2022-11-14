@@ -7,11 +7,11 @@ function Record() {
     const location =  useLocation();
     const id = location.state.stateId;
 
-    const {payload, isPending, error} = useAxiosGet(`http://localhost:2550/record/${id}`);
+    const {payload, isPending, error} = useAxiosGet(`/blog/record/${id}`);
 
     return (
         <div className="Record">
-            {error && <div>{error}</div>}
+            {error && <div className="error">{error}</div>}
             {isPending && <div>Loading...</div>}
             {payload && <PostOutput post={payload} title="Record"/>}
 

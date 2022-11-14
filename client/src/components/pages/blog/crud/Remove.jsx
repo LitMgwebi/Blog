@@ -12,23 +12,25 @@ function Remove() {
     const id = location.state.stateId;
     const navigate = useNavigate();
     
-    const {payload, isPending, error} = useAxiosGet(`http://localhost:2550/remove/${id}`);
+    const {payload, isPending, error, setError} = useAxiosGet(`/blog/record/${id}`);
 
     function handleDelete() {
         log.clear();
         axios
-            .delete(`http://localhost:2550/remove/${id}`)
+            .delete(`/blog/remove/${id}`)
             .then((res) => {
                 setStatus(res.status);
+                setError(null);
             }).catch((error) => {
                 log.error(error.message);
+                setError(error.message);
             });
         navigate('/list');
     }
     return(
         <div className="delete">
             
-            {error && <div>{error}</div>}
+            {error && <div className="error">{error}</div>}
             {isPending && <div>Loading...</div>}
             {payload && <PostOutput post={payload} title="Delete"/>}
 

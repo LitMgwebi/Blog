@@ -5,20 +5,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const express_1 = __importDefault(require("express"));
-const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
 //* Directory Imports
 const logging_1 = __importDefault(require("./config/logging"));
 const config_1 = __importDefault(require("./config/config"));
 const indexController_1 = __importDefault(require("./Controllers/indexController"));
 const blogController_1 = __importDefault(require("./Controllers/blogController"));
+const userController_1 = __importDefault(require("./Controllers/userController"));
 //* Server setup
 const port = config_1.default.port;
 const host = config_1.default.host;
 const dbURL = config_1.default.dbURL;
 const server = (0, express_1.default)();
 server.use(express_1.default.json());
-server.use((0, cors_1.default)());
+// server.use(cors());
 server.use(express_1.default.static(__dirname + "/public"));
 // server.use(methodOverride("_method"));
 server.use(body_parser_1.default.urlencoded({ extended: false }));
@@ -36,4 +36,5 @@ server.use(body_parser_1.default.json());
 });
 //* Routing
 server.use(indexController_1.default);
-server.use(blogController_1.default);
+server.use('/blog', blogController_1.default);
+server.use('/user', userController_1.default);

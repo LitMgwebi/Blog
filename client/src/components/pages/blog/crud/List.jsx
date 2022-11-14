@@ -5,11 +5,11 @@ import log from "../../../../config/logging";
 import Card from "../../../layout/Card";
 
 function List() {
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState(null);
 
     useEffect(()=> {
         log.clear();
-        axios.get("http://localhost:2550/list")
+        axios.get("/blog/list")
             .then((res) => {
                 setPosts(res.data.blog)
                 if(res.data.error != null){
@@ -18,13 +18,13 @@ function List() {
             }).catch((err) => {
                 log.error(err.message);
             })
-    }, []);
+        }, []);
 
     return (
         <div className="contentContainer">
             <h1>Blogs</h1>
             <Link to="/add">Add</Link>
-            {posts.map((post, i) =>{
+            {posts && posts.map((post, i) =>{
                 return(
                     <Card post={post} imgUrl={require("../../../../media/MainPhoto.png")}/>
                 )

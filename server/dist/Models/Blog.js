@@ -17,6 +17,10 @@ const blogSchema = new mongoose_1.Schema({
         type: String,
         required: [true, "Please enter the author for this entry"]
     },
+    tagline: {
+        type: String,
+        required: [true, "Please enter the description for this entry"]
+    }
 });
 const Blog = (0, mongoose_1.model)('Blog', blogSchema);
 exports.default = Blog;

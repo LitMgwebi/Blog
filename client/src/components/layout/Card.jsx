@@ -13,6 +13,8 @@ function Card({post, imgUrl}) {
                 <h3>{post.title}</h3>
                 <h5>{post.author}</h5>
                 <p>{post.tagline}</p>
+            </div>
+            <div className="cardButton">
                 <Link
                     to={`/record/${post._id}`}
                     state={{stateId: post._id}}

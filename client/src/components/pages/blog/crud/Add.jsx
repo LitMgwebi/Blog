@@ -7,6 +7,7 @@ function Add() {
     const currentDate = new Date();
     const navigate = useNavigate();
     const [status, setStatus] = useState("");
+    const [error, setError] = useState(null)
 
     const [title, setTitle] = useState("");
     const [blog, setBlog] = useState("");
@@ -26,17 +27,20 @@ function Add() {
             tagline: tagline
         }
 
-        axios.post("http://localhost:2550/add", userData)
+        axios.post("/blog/add", userData)
             .then((res) => {
                 setStatus(res.status);
+                setError(null);
             }).catch((err) => {
                 log.error(err.message);
+                setError(err.message);
             });
 
         navigate("/list");
     }
     return(
         <div className="contentContainer">
+            {error && <div className="error">{error}</div>}
             <h1>Create</h1>
                 <form method="POST" onSubmit={handleSubmit}>
                     <div className="titleInput">

@@ -1,5 +1,4 @@
 import {connect} from "mongoose";
-import methodOverride from "method-override";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -9,6 +8,7 @@ import log from "./config/logging";
 import config from "./config/config";
 import indexRouter from "./Controllers/indexController";
 import blogRouter from "./Controllers/blogController";
+import userRouter from "./Controllers/userController";
 
 //* Server setup
 const port: number = config.port;
@@ -17,7 +17,7 @@ const dbURL: string = config.dbURL;
 
 const server = express();
 server.use(express.json());
-server.use(cors())
+// server.use(cors());
 server.use(express.static(__dirname + "/public"));
 // server.use(methodOverride("_method"));
 server.use(bodyParser.urlencoded({extended: false}));
@@ -37,4 +37,5 @@ connect(dbURL)
 
 //* Routing
 server.use(indexRouter);
-server.use(blogRouter);
+server.use('/blog', blogRouter);
+server.use('/user', userRouter);
