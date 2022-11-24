@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {useLocation} from "react-router";
 import log from "../../../config/logging";
-import useAxiosGet from "../../../components/useAxiosGet";
+import useAxiosGet from "../../../hooks/useAxiosGet";
 
 function Edit() {
     const location = useLocation();

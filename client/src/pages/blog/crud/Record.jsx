@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import { useLocation } from "react-router";
 import PostOutput from "../../../components/PostOutput";
-import useAxiosGet from "../../../components/useAxiosGet";
+import useAxiosGet from "../../../hooks/useAxiosGet";
 
 function Record() {
     const location =  useLocation();

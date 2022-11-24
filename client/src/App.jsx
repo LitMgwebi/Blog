@@ -6,7 +6,8 @@ import Record from "./pages/blog/crud/Record";
 import Add from './pages/blog/crud/Add';
 import Remove from './pages/blog/crud/Remove';
 import Edit from './pages/blog/crud/Edit';
-
+import Login from './pages/auth/Login';
+import Signup from './pages/auth/Signup';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -26,6 +27,8 @@ function App() {
             <Route path="/record/:id" element={<Record/>}/>
             <Route path="edit/:id" element={<Edit/>}/>
             <Route path="/remove/:id" element={<Remove/>}/>
+            <Route path="signup" element={<Signup/>}/>
+            <Route path="login" element={<Login/>}/>
           </Routes>
         <Footer/>
       </Router>

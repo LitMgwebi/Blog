@@ -4,7 +4,7 @@ import {useState} from "react";
 import {useLocation} from "react-router";
 import log from "../../../config/logging";
 import PostOutput from "../../../components/PostOutput";
-import useAxiosGet from "../../../components/useAxiosGet";
+import useAxiosGet from "../../../hooks/useAxiosGet";
 function Remove() {
     const [status, setStatus] = useState("")
     const location = useLocation();
