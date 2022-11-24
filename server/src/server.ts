@@ -2,24 +2,23 @@ import {connect} from "mongoose";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+require('dotenv').config();
 
 //* Directory Imports
 import log from "./config/logging";
-import config from "./config/config";
 import indexRouter from "./Controllers/indexController";
 import blogRouter from "./Controllers/blogController";
 import userRouter from "./Controllers/userController";
 
 //* Server setup
-const port: number = config.port;
-const host: string = config.host;
-const dbURL: string = config.dbURL;
+const port: any = process.env.PORT;
+const host: string = process.env.HOST;
+const dbURL: string = process.env.DBURL;
 
 const server = express();
 server.use(express.json());
-// server.use(cors());
+server.use(cors());
 server.use(express.static(__dirname + "/public"));
-// server.use(methodOverride("_method"));
 server.use(bodyParser.urlencoded({extended: false}));
 server.use(bodyParser.json());
 

@@ -1,11 +1,11 @@
-import Header from './components/layout/Header';
-import Footer from "./components/layout/Footer";
-import Home from "./components/pages/blog/Home";
-import List from "./components/pages/blog/crud/List";
-import Record from "./components/pages/blog/crud/Record";
-import Add from './components/pages/blog/crud/Add';
-import Remove from './components/pages/blog/crud/Remove';
-import Edit from './components/pages/blog/crud/Edit';
+import Header from './components/Header';
+import Footer from "./components/Footer";
+import Home from "./pages/blog/Home";
+import List from "./pages/blog/crud/List";
+import Record from "./pages/blog/crud/Record";
+import Add from './pages/blog/crud/Add';
+import Remove from './pages/blog/crud/Remove';
+import Edit from './pages/blog/crud/Edit';
 
 import './App.css';
 import {
