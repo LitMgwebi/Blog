@@ -1,16 +1,16 @@
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
-import {useState} from "react";
 import {useLocation} from "react-router";
 import log from "../../../config/logging";
 import useAxiosGet from "../../../hooks/useAxiosGet";
+import {useAuthContext} from "../../../hooks/useAuthContext";
 
 function Edit() {
     const location = useLocation();
     const navigate = useNavigate();
     const currentDate = new Date();
     const id = location.state.stateId;
-    const [status, setStatus] = useState("");
+    const {user} = useAuthContext();
 
     const {payload, isPending, error, setError} = useAxiosGet(`/blog/record/${id}`);
     const {title, blog, author, uploadDate, tagline, setTitle, setBlog, setAuthor, setTagline} = payload;
@@ -27,14 +27,19 @@ function Edit() {
             tagline: tagline
         }
 
-        axios.put(`/blog/edit/${id}`, userData)
-            .then((res) => {
-                setStatus(res.status)
-                setError(null);
-            }).catch((error) => {
-                log.error(error.message)
-                setError(error.message);
-            });
+        axios({
+            method: 'PUT',
+            url: `/blog/edit/${id}`,
+            data: userData,
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        }).then((res) => {
+            setError(null);
+        }).catch((error) => {
+            log.error(error.message)
+            setError(error.message);
+        });
 
         navigate(`/list`);
     }
@@ -99,8 +104,6 @@ function Edit() {
                     </Link>
                </div>
             </form>
-
-            {status && status}
         </div>
     )
 }

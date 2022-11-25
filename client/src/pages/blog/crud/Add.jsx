@@ -2,11 +2,12 @@ import axios from "axios";
 import {useState} from "react";
 import log from "../../../config/logging";
 import {useNavigate, Link} from "react-router-dom";
+import {useAuthContext} from "../../../hooks/useAuthContext";
 
 function Add() {
     const currentDate = new Date();
     const navigate = useNavigate();
-    const [status, setStatus] = useState("");
+    const {user} = useAuthContext();
     const [error, setError] = useState(null)
 
     const [title, setTitle] = useState("");
@@ -27,14 +28,19 @@ function Add() {
             tagline: tagline
         }
 
-        axios.post("/blog/add", userData)
-            .then((res) => {
-                setStatus(res.status);
-                setError(null);
-            }).catch((err) => {
-                log.error(err.message);
-                setError(err.message);
-            });
+        axios({
+            method: "POST",
+            url: "/blog/add",
+            data: userData,
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        }).then((res) => {
+            setError(null);
+        }).catch((err) => {
+            log.error(err.message);
+            setError(err.message);
+        });
 
         navigate("/list");
     }
@@ -100,7 +106,6 @@ function Add() {
                     </div>
                </form>
 
-               {status && status}
         </div>
     );
 }

@@ -5,25 +5,32 @@ import {useLocation} from "react-router";
 import log from "../../../config/logging";
 import PostOutput from "../../../components/PostOutput";
 import useAxiosGet from "../../../hooks/useAxiosGet";
+import {useAuthContext} from "../../../hooks/useAuthContext";
+
 function Remove() {
     const [status, setStatus] = useState("")
     const location = useLocation();
     const id = location.state.stateId;
     const navigate = useNavigate();
+    const {user} = useAuthContext();
     
     const {payload, isPending, error, setError} = useAxiosGet(`/blog/record/${id}`);
 
     function handleDelete() {
         log.clear();
-        axios
-            .delete(`/blog/remove/${id}`)
-            .then((res) => {
-                setStatus(res.status);
-                setError(null);
-            }).catch((error) => {
-                log.error(error.message);
-                setError(error.message);
-            });
+        axios({
+            method: "DELETE",
+            url: `/blog/remove/${id}`,
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        }).then((res) => {
+            setStatus(res.status);
+            setError(null);
+        }).catch((error) => {
+            log.error(error.message);
+            setError(error.message);
+        });
         navigate('/list');
     }
     return(

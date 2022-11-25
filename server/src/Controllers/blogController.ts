@@ -1,8 +1,12 @@
 import { Router, Request, Response } from "express";
 import log from "../config/logging";
 import Blog from "../Models/Blog";
+import requireAuth from "../middleware/requireAuth";
 
 const router = Router();
+
+//require auth for all blog routes
+router.use(requireAuth);
 
 //#region GET
 

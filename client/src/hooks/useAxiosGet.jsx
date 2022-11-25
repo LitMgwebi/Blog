@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import log from "../config/logging";
+import { useAuthContext } from "./useAuthContext";
 
 const useAxiosGet = (url) => {
     const [title, setTitle] = useState("");
@@ -10,31 +11,38 @@ const useAxiosGet = (url) => {
     const [tagline, setTagline] = useState("");
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
+    const {user} = useAuthContext;
 
     useEffect(() => {
         log.clear();
 
-        axios.get(url)
-            .then((res) => {
-                if(res.data.error != null){
-                    log.error(res.data.error)
-                    throw Error(res.data.error);
-                } else {
-                    setTitle(res.data.blog.title);
-                    setBlog(res.data.blog.blog);
-                    setAuthor(res.data.blog.author);
-                    setUploadDate(res.data.blog.uploadDate);
-                    setTagline(res.data.blog.tagline);
+        axios({
+            method: "GET",
+            url: url,
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        })
+        .then((res) => {
+            if(res.data.error != null){
+                log.error(res.data.error)
+                throw Error(res.data.error);
+            } else {
+                setTitle(res.data.blog.title);
+                setBlog(res.data.blog.blog);
+                setAuthor(res.data.blog.author);
+                setUploadDate(res.data.blog.uploadDate);
+                setTagline(res.data.blog.tagline);
 
-                    setIsPending(false);
-                    setError(null);
-                }
-            }).catch((error) => {
-                log.error(error.message);
                 setIsPending(false);
-                setError(error.message);
-            });
-    },[url]);
+                setError(null);
+            }
+        }).catch((error) => {
+            log.error(error.message);
+            setIsPending(false);
+            setError(error.message);
+        });
+    },[url, user]);
 
     const payload = {
         title: title,
