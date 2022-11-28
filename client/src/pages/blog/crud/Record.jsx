@@ -7,13 +7,12 @@ function Record() {
     const location =  useLocation();
     const id = location.state.stateId;
 
-    const {payload, isPending, error} = useAxiosGet(id);
-
+    const {post, isPending, error} = useAxiosGet(id);
     return (
         <div className="Record">
             {error && <div className="error">{error}</div>}
             {isPending && <div>Loading...</div>}
-            {payload && <PostOutput post={payload} title="Record"/>}
+            {post && <PostOutput post={post} title="Record"/>}
 
             <div className="button-group">
                     <button><a href="/list">Back</a></button>

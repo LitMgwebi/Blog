@@ -8,13 +8,12 @@ import useAxiosGet from "../../../hooks/useAxiosGet";
 import {useAuthContext} from "../../../hooks/useAuthContext";
 
 function Remove() {
-    const [status, setStatus] = useState("")
     const location = useLocation();
     const id = location.state.stateId;
     const navigate = useNavigate();
     const {user} = useAuthContext();
     
-    const {payload, isPending, error, setError, setIsPending} = useAxiosGet(id);
+    const {post, isPending, error, setError, setIsPending} = useAxiosGet(id);
 
     function handleDelete() {
         if(!user){
@@ -28,7 +27,6 @@ function Remove() {
                 'Authorization': `Bearer ${user.token}`
             }
         }).then((res) => {
-            setStatus(res.status);
             setIsPending(false);
             setError(null);
         }).catch((error) => {
@@ -43,7 +41,7 @@ function Remove() {
             
             {error && <div className="error">{error}</div>}
             {isPending && <div>Loading...</div>}
-            {payload && <PostOutput post={payload} title="Delete"/>}
+            {post && <PostOutput post={post} title="Delete"/>}
 
             <div className="button-group">
                 <Link
@@ -54,8 +52,6 @@ function Remove() {
                 </Link>
                 <button onClick={handleDelete}>Delete</button>
             </div>
-
-            {status && status}
         </div>
     );
 }

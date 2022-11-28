@@ -12,25 +12,22 @@ function Edit() {
     const id = location.state.stateId;
     const {user} = useAuthContext();
 
-    const {payload, isPending, error, setError, setIsPending} = useAxiosGet(id);
-    const {title, blog, author, uploadDate, tagline, setTitle, setBlog, setAuthor, setTagline} = payload;
+    const {post, setPost, isPending, error, setError, setIsPending} = useAxiosGet(id);
+    
+    const handleChange = (e) => {
+        setPost({...post, [e.target.name]: e.target.value});
 
+        setPost({...post, uploadDate: currentDate});
+    }
     function handleUpdate(e) {
         e.preventDefault();
         log.clear();
         
-        const userData = {
-            title:title,
-            blog: blog,
-            uploadDate: uploadDate,
-            author: author,
-            tagline: tagline
-        }
 
         axios({
             method: 'PUT',
             url: `http://localhost:4050/blog/edit/${id}`,
-            data: userData,
+            data: post,
             headers: {
                 'Authorization': `Bearer ${user.token}`
             }
@@ -54,41 +51,37 @@ function Edit() {
             <form method="PUT" onSubmit={handleUpdate}>
                 <div className="titleUpdate">
                     <input 
-                            type="text"
-                            value={title} 
-                            onChange={(e) => 
-                                {setTitle(e.target.value)}
-                            } 
+                        type="text"
+                        name="title"
+                        value={post.title} 
+                        onChange={handleChange} 
                     />
                </div>
 
                <div className="blogUpdate">
                     <textarea
-                            value={blog}
-                            onChange={(e) => {
-                                setBlog(e.target.value)
-                            }} 
+                        name="blog"
+                        value={post.blog}
+                        onChange={handleChange} 
                     />
                </div>
                 
                <div className="taglineInput">
-                        <label>Enter tagline</label>
-                        <input 
-                            type="text"
-                            value={tagline}
-                            onChange={(e) => {
-                                setTagline(e.target.value);
-                            }}  
-                        />
+                    <label>Enter tagline</label>
+                    <input 
+                        name="tagline"
+                        type="text"
+                        value={post.tagline}
+                        onChange={handleChange}  
+                    />
                 </div>
 
                <div className="authorInput">
                     <input 
-                              type="text"
-                              value={author} 
-                              onChange={(e) => 
-                                   {setAuthor(e.target.value)}
-                              } 
+                        name="author"
+                        type="text"
+                        value={post.author} 
+                        onChange={handleChange} 
                     />
                </div>
 

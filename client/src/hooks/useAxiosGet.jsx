@@ -4,17 +4,18 @@ import log from "../config/logging";
 import { useAuthContext } from "./useAuthContext";
 
 const useAxiosGet = (id) => {
-    const [title, setTitle] = useState("");
-    const [blog, setBlog] = useState("");
-    const [author, setAuthor] = useState("");
-    const [uploadDate, setUploadDate] = useState("");
-    const [tagline, setTagline] = useState("");
+    const [post, setPost] = useState({
+        title: "",
+        blog: "",
+        author: "",
+        uploadDate: "",
+        tagline: "",
+    })
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
     const {user} = useAuthContext();
 
     useEffect(() => {
-        // log.clear();
         if(id !== null){
             if(user){
                 axios({
@@ -24,12 +25,17 @@ const useAxiosGet = (id) => {
                         'Authorization': `Bearer ${user.token}`
                     }
                 }).then((res) => {
-                    setTitle(res.data.blog.title);
-                    setBlog(res.data.blog.blog);
-                    setAuthor(res.data.blog.author);
-                    setUploadDate(res.data.blog.uploadDate);
-                    setTagline(res.data.blog.tagline);
-
+                    const updatedPost = {
+                        title: res.data.blog.title,
+                        blog: res.data.blog.blog,
+                        author: res.data.blog.author,
+                        uploadDate: res.data.blog.uploadDate,
+                        tagline: res.data.blog.tagline,
+                    };
+                    setPost(post =>({
+                        ...post,
+                        ...updatedPost
+                    }));
                     setIsPending(false);
                     setError(null);
                 }).catch((error) => {
@@ -45,20 +51,7 @@ const useAxiosGet = (id) => {
         }
     },[id, user]);
 
-    const payload = {
-        title: title,
-        blog: blog,
-        uploadDate: uploadDate,
-        author: author,
-        tagline: tagline,
-        setTitle: setTitle,
-        setAuthor: setAuthor,
-        setBlog: setBlog,
-        setUploadDate: setUploadDate,
-        setTagline: setTagline
-    }
-
-    return {payload, isPending, error, setError, setIsPending}
+    return {post, isPending, error, setPost, setError, setIsPending}
 }
 
 export default useAxiosGet;
