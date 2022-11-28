@@ -13,8 +13,10 @@ router.use(requireAuth);
 // Get all
 router.get('/list', async (req: Request, res: Response) => {
     let blog: any = null;
+    //@ts-ignore
+    const user_id = req.user._id
     try {
-        blog = await Blog.find();
+        blog = await Blog.find({user_id});
         res.status(201).send({
             blog: blog,
             error: null,
@@ -63,6 +65,8 @@ router.post("/add", async (req, res) => {
         uploadDate: req.body.uploadDate,
         author: req.body.author,
         tagline: req.body.tagline,
+        //@ts-ignore
+        user_id: req.user._id
     });
 
     try {

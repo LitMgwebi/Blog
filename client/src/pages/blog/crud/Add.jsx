@@ -9,17 +9,19 @@ function Add() {
     const navigate = useNavigate();
     const {user} = useAuthContext();
     const [error, setError] = useState(null)
+    const [isPending, setIsPending] = useState(true);
 
     const [title, setTitle] = useState("");
     const [blog, setBlog] = useState("");
     const [author, setAuthor] = useState("");
     const [tagline, setTagline] = useState("");
-
-
+    
     function handleSubmit(e) {
         e.preventDefault();
-        log.clear();
-
+        if (!user) {
+            setError('You must be logged in')
+            return
+        }
         const userData = {
             title: title,
             blog: blog,
@@ -27,19 +29,21 @@ function Add() {
             author: author,
             tagline: tagline
         }
-
         axios({
             method: "POST",
-            url: "/blog/add",
+            url: "http://localhost:4050/blog/add",
             data: userData,
             headers: {
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${user.token}`
             }
         }).then((res) => {
+            setIsPending(false);
             setError(null);
-        }).catch((err) => {
-            log.error(err.message);
-            setError(err.message);
+        }).catch((error) => {
+            log.error(error.response.data.error);
+            setIsPending(false);
+            setError(error.response.data.error);
         });
 
         navigate("/list");
@@ -47,6 +51,7 @@ function Add() {
     return(
         <div className="contentContainer">
             {error && <div className="error">{error}</div>}
+            {isPending && <div>Loading...</div>}
             <h1>Create</h1>
                 <form method="POST" onSubmit={handleSubmit}>
                     <div className="titleInput">

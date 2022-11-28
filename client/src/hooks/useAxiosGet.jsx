@@ -3,7 +3,7 @@ import axios from "axios";
 import log from "../config/logging";
 import { useAuthContext } from "./useAuthContext";
 
-const useAxiosGet = (url) => {
+const useAxiosGet = (id) => {
     const [title, setTitle] = useState("");
     const [blog, setBlog] = useState("");
     const [author, setAuthor] = useState("");
@@ -11,38 +11,39 @@ const useAxiosGet = (url) => {
     const [tagline, setTagline] = useState("");
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
-    const {user} = useAuthContext;
+    const {user} = useAuthContext();
 
     useEffect(() => {
-        log.clear();
+        // log.clear();
+        if(id !== null){
+            if(user){
+                axios({
+                    method: "GET",
+                    url: `http://localhost:4050/blog/record/${id}`,
+                    headers: {
+                        'Authorization': `Bearer ${user.token}`
+                    }
+                }).then((res) => {
+                    setTitle(res.data.blog.title);
+                    setBlog(res.data.blog.blog);
+                    setAuthor(res.data.blog.author);
+                    setUploadDate(res.data.blog.uploadDate);
+                    setTagline(res.data.blog.tagline);
 
-        axios({
-            method: "GET",
-            url: url,
-            headers: {
-                'Authorization': `Bearer ${user.token}`
+                    setIsPending(false);
+                    setError(null);
+                }).catch((error) => {
+                    log.error(error.response.data.error);
+                    setIsPending(false);
+                    setError(error.response.data.error);
+                });
+            }else{
+                setError("Cannot access user to get blog");
             }
-        })
-        .then((res) => {
-            if(res.data.error != null){
-                log.error(res.data.error)
-                throw Error(res.data.error);
-            } else {
-                setTitle(res.data.blog.title);
-                setBlog(res.data.blog.blog);
-                setAuthor(res.data.blog.author);
-                setUploadDate(res.data.blog.uploadDate);
-                setTagline(res.data.blog.tagline);
-
-                setIsPending(false);
-                setError(null);
-            }
-        }).catch((error) => {
-            log.error(error.message);
-            setIsPending(false);
-            setError(error.message);
-        });
-    },[url, user]);
+        } else {
+            setError("Did not recieve blog id, please navigate to list")
+        }
+    },[id, user]);
 
     const payload = {
         title: title,
@@ -57,7 +58,7 @@ const useAxiosGet = (url) => {
         setTagline: setTagline
     }
 
-    return {payload, isPending, error, setError}
+    return {payload, isPending, error, setError, setIsPending}
 }
 
 export default useAxiosGet;

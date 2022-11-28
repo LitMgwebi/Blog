@@ -13,22 +13,26 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Navigate
 } from "react-router-dom";
+import {useAuthContext} from "./hooks/useAuthContext";
 
 function App() {
+  const {user} = useAuthContext();
+
   return (
     <div className="App">
       <Router>
         <Header/>
           <Routes>
             <Route path="/" element={<Home/>}/>
-            <Route path="/list" element={<List/>}/>
-            <Route path="Add" element={<Add/>}/>
-            <Route path="/record/:id" element={<Record/>}/>
-            <Route path="edit/:id" element={<Edit/>}/>
-            <Route path="/remove/:id" element={<Remove/>}/>
-            <Route path="signup" element={<Signup/>}/>
-            <Route path="login" element={<Login/>}/>
+            <Route path="/list" element={user ? <List/> : <Navigate to="/"/>}/>
+            <Route path="/add" element={user ? <Add/>  : <Navigate to="/"/>}/>
+            <Route path="/record/:id" element={user ? <Record/>  : <Navigate to="/"/>}/>
+            <Route path="edit/:id" element={user ? <Edit/>  : <Navigate to="/"/>}/>
+            <Route path="/remove/:id" element={user ? <Remove/>  : <Navigate to="/"/>}/>
+            <Route path="/signup" element={!user ? <Signup/>: <Navigate to="/list"/>}/>
+            <Route path="/login" element={!user ? <Login/>: <Navigate to="/list"/>}/>
           </Routes>
         <Footer/>
       </Router>

@@ -12,7 +12,7 @@ function Edit() {
     const id = location.state.stateId;
     const {user} = useAuthContext();
 
-    const {payload, isPending, error, setError} = useAxiosGet(`/blog/record/${id}`);
+    const {payload, isPending, error, setError, setIsPending} = useAxiosGet(id);
     const {title, blog, author, uploadDate, tagline, setTitle, setBlog, setAuthor, setTagline} = payload;
 
     function handleUpdate(e) {
@@ -29,16 +29,18 @@ function Edit() {
 
         axios({
             method: 'PUT',
-            url: `/blog/edit/${id}`,
+            url: `http://localhost:4050/blog/edit/${id}`,
             data: userData,
             headers: {
                 'Authorization': `Bearer ${user.token}`
             }
         }).then((res) => {
+            setIsPending(false);
             setError(null);
         }).catch((error) => {
             log.error(error.message)
-            setError(error.message);
+            setIsPending(false);
+            setError(error.response.data.error);
         });
 
         navigate(`/list`);

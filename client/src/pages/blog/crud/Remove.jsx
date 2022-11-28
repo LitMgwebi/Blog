@@ -14,22 +14,27 @@ function Remove() {
     const navigate = useNavigate();
     const {user} = useAuthContext();
     
-    const {payload, isPending, error, setError} = useAxiosGet(`/blog/record/${id}`);
+    const {payload, isPending, error, setError, setIsPending} = useAxiosGet(id);
 
     function handleDelete() {
+        if(!user){
+            return
+        }
         log.clear();
         axios({
             method: "DELETE",
-            url: `/blog/remove/${id}`,
+            url: `http://localhost:4050/blog/remove/${id}`,
             headers: {
                 'Authorization': `Bearer ${user.token}`
             }
         }).then((res) => {
             setStatus(res.status);
+            setIsPending(false);
             setError(null);
         }).catch((error) => {
             log.error(error.message);
-            setError(error.message);
+            setIsPending(false);
+            setError(error.response.data.error);
         });
         navigate('/list');
     }

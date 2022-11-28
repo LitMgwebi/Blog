@@ -6,6 +6,7 @@ interface IBlog {
      uploadDate: Date;
      author: string;
      tagline: string;
+     user_id: string;
 }
 
 const blogSchema = new Schema<IBlog>({
@@ -28,7 +29,11 @@ const blogSchema = new Schema<IBlog>({
    tagline: {
      type: String,
      required: [true, "Please enter the description for this entry"]
-   }
+   },
+   user_id: {
+     type: String,
+     required: true,
+   },
 });
 
 const Blog = model<IBlog>('Blog', blogSchema);

@@ -33,7 +33,7 @@ connect(dbURL)
           log.error(err);
           process.exit(1);
      });
-
+ 
 //* Routing
 server.use(indexRouter);
 server.use('/blog', blogRouter);

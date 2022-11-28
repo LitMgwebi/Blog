@@ -7,7 +7,7 @@ function Record() {
     const location =  useLocation();
     const id = location.state.stateId;
 
-    const {payload, isPending, error} = useAxiosGet(`/blog/record/${id}`);
+    const {payload, isPending, error} = useAxiosGet(id);
 
     return (
         <div className="Record">
