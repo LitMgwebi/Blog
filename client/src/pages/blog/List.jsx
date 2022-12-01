@@ -43,7 +43,7 @@ function List() {
         <div className="contentContainer">
             {error && <div className="error">{error}</div>}
             {isPending && <div>Loading...</div>}
-            <h1>Blogs</h1>
+            <h1>Dashboard</h1>
             <Link to="/add">Add</Link>
             {posts && posts.map((post, i) =>{
                 return(

@@ -25,7 +25,7 @@ function App() {
       <Router>
         <Header/>
           <Routes>
-            <Route path="/" element={<Home/>}/>
+            <Route path="/" element={user ? <Navigate to="/list"/>: <Home/>}/>
             <Route path="/list" element={user ? <List/> : <Navigate to="/"/>}/>
             <Route path="/add" element={user ? <Add/>  : <Navigate to="/"/>}/>
             <Route path="/record/:id" element={user ? <Record/>  : <Navigate to="/"/>}/>

@@ -48,12 +48,12 @@ function Record() {
                {post && <PostOutput post={post} title="Record"/>}
 
                <div className="button-group">
-                         <button><a href="/list">Back</a></button>
+                        <Link to="/list"><button>Back</button></Link>
                          <Link 
                               to={`/edit/${id}`}
                               state={{ stateId: id}}
                          >
-                              <button> Update </button>
+                              <button> Edit </button>
                          </Link>
                          <button onClick={handleConfirm}>
                               Delete
