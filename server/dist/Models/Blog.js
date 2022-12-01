@@ -20,7 +20,14 @@ const blogSchema = new mongoose_1.Schema({
     tagline: {
         type: String,
         required: [true, "Please enter the description for this entry"]
-    }
+    },
+    photo: {
+        type: String,
+    },
+    user_id: {
+        type: String,
+        required: true,
+    },
 });
 const Blog = (0, mongoose_1.model)('Blog', blogSchema);
 exports.default = Blog;

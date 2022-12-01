@@ -2,11 +2,34 @@ import { Router, Request, Response } from "express";
 import log from "../config/logging";
 import Blog from "../Models/Blog";
 import requireAuth from "../middleware/requireAuth";
+import multer from "multer";
+import {v4 as uuidv4} from "uuid";
+import path from "path";
 
-const router = Router();
+const router = Router(); 
 
 //require auth for all blog routes
 router.use(requireAuth);
+
+//#region Helper functions
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, '../client/public/media');
+    },
+    filename: function(req, file, cb){
+        cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+const fileFilter = (req, file, cb) => {
+    const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    if(allowedFileTypes .includes(file.mimetype)){
+        cb(null, true);
+    }else{
+        cb(null, false);
+    }
+}
+let upload = multer({storage, fileFilter});
+//#endregion
 
 //#region GET
 
@@ -58,17 +81,17 @@ router.get("/record/:id", async (req: Request, res: Response) => {
 
 //#region POST
 
-router.post("/add", async (req, res) => {
+router.post("/add", upload.single('photo'), async (req: Request, res: Response) => {
     const blog: any = new Blog({
         title: req.body.title,
         blog: req.body.blog,
         uploadDate: req.body.uploadDate,
         author: req.body.author,
         tagline: req.body.tagline,
+        photo: req.file.filename,
         //@ts-ignore
         user_id: req.user._id
     });
-
     try {
         await blog.save();
         res.status(201).send({

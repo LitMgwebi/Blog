@@ -22,6 +22,7 @@ const userSchema = new mongoose_1.Schema({
     },
 }, {
     statics: {
+        //static signup method
         async signup(email, password) {
             //validation
             if (!email || !password) {
@@ -44,6 +45,21 @@ const userSchema = new mongoose_1.Schema({
             const user = await this.create({ email, password: hash });
             return user;
         },
+        //static login method
+        async login(email, password) {
+            if (!email || !password) {
+                throw Error("Please fill in all required fields");
+            }
+            const user = await this.findOne({ email });
+            if (!user) {
+                throw Error("Invalid email");
+            }
+            const match = await bcrypt.compare(password, user.password);
+            if (!match) {
+                throw Error("Invalid password");
+            }
+            return user;
+        }
     }
 });
 //static signup method

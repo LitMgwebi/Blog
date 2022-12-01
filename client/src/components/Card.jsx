@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
-function Card({post, imgUrl}) {
+function Card({post}) {
     return(
         <div className="card">
             <div className="image">
                 <img  
-                    src={imgUrl} 
+                    src={`/media/${post.photo}`}                    
                     alt="Lithi" 
                 />
             </div>

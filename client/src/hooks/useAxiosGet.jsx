@@ -10,6 +10,7 @@ const useAxiosGet = (id) => {
         author: "",
         uploadDate: "",
         tagline: "",
+        photo: "",
     })
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
@@ -31,6 +32,7 @@ const useAxiosGet = (id) => {
                         author: res.data.blog.author,
                         uploadDate: res.data.blog.uploadDate,
                         tagline: res.data.blog.tagline,
+                        photo: res.data.blog.photo
                     };
                     setPost(post =>({
                         ...post,

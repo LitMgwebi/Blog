@@ -5,6 +5,8 @@ function PostOutput({post, title}){
             <br/>
             <h2>{post.title}</h2>
             <br/>
+            <img src={`/media/${post.photo}`} alt="ThePhoto"/>
+            <br/>
             <h3>{post.author}</h3>
             <br/>
             <p>{post.tagline}</p>

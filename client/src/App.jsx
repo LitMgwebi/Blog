@@ -1,11 +1,11 @@
 import Header from './components/Header';
 import Footer from "./components/Footer";
-import Home from "./pages/blog/Home";
-import List from "./pages/blog/crud/List";
-import Record from "./pages/blog/crud/Record";
-import Add from './pages/blog/crud/Add';
-import Remove from './pages/blog/crud/Remove';
-import Edit from './pages/blog/crud/Edit';
+import Home from "./pages/Home";
+import List from "./pages/blog/List";
+import Record from "./pages/blog/Record";
+import Add from './pages/blog/Add';
+// import Remove from './pages/blog/crud/Remove';
+import Edit from './pages/blog/Edit';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
 import './App.css';
@@ -30,7 +30,7 @@ function App() {
             <Route path="/add" element={user ? <Add/>  : <Navigate to="/"/>}/>
             <Route path="/record/:id" element={user ? <Record/>  : <Navigate to="/"/>}/>
             <Route path="edit/:id" element={user ? <Edit/>  : <Navigate to="/"/>}/>
-            <Route path="/remove/:id" element={user ? <Remove/>  : <Navigate to="/"/>}/>
+            {/* <Route path="/remove/:id" element={user ? <Remove/>  : <Navigate to="/"/>}/> */}
             <Route path="/signup" element={!user ? <Signup/>: <Navigate to="/list"/>}/>
             <Route path="/login" element={!user ? <Login/>: <Navigate to="/list"/>}/>
           </Routes>
