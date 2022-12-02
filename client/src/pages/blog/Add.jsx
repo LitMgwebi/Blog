@@ -1,13 +1,13 @@
 import axios from "axios";
-import {useState} from "react";
+import { useState } from "react";
 import log from "../../config/logging";
-import {useNavigate, Link} from "react-router-dom";
-import {useAuthContext} from "../../hooks/useAuthContext";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 function Add() {
     // const currentDate = new Date();
     const navigate = useNavigate();
-    const {user} = useAuthContext();
+    const { user } = useAuthContext();
     const [error, setError] = useState(null)
 
     const [post, setPost] = useState({
@@ -20,11 +20,11 @@ function Add() {
     })
 
     const handleChange = (e) => {
-        setPost({...post, [e.target.name]: e.target.value});
+        setPost({ ...post, [e.target.name]: e.target.value });
     }
-    
+
     const handlePhoto = (e) => {
-        setPost({...post, photo: e.target.files[0]});
+        setPost({ ...post, photo: e.target.files[0] });
         console.log(post.photo)
     }
     function handleSubmit(e) {
@@ -33,7 +33,7 @@ function Add() {
             setError('You must be logged in')
             return
         }
-        
+
         const formData = new FormData();
         formData.append('title', post.title);
         formData.append('blog', post.blog);
@@ -61,75 +61,75 @@ function Add() {
 
         navigate("/list");
     }
-    return(
+    return (
         <div className="contentContainer">
             {error && <div className="error">{error}</div>}
             <h1>Create</h1>
-                <form method="POST" onSubmit={handleSubmit} encType='multipart/form-data'>
-                    <div className="titleInput">
-                        <label>Enter title</label>
-                        <input 
-                            type="text"
-                            name="title"
-                            value={post.title} 
-                            onChange={handleChange} 
-                        />
-                    </div>
+            <form method="POST" onSubmit={handleSubmit} encType='multipart/form-data'>
+                <div className="titleInput">
+                    <label>Enter title</label>
+                    <input
+                        type="text"
+                        name="title"
+                        value={post.title}
+                        onChange={handleChange}
+                    />
+                </div>
 
-                    <div className="blogUpdate">
-                        <label>Enter blog</label>
-                        <textarea
-                            name="blog"
-                            value={post.blog}
-                            onChange={handleChange} 
-                        />
-                    </div>
-                    
-                    <div className="taglineInput">
-                        <label>Enter tagline</label>
-                        <input 
-                            name="tagline"
-                            type="text"
-                            value={post.tagline}
-                            onChange={handleChange}  
-                        />
-                    </div>
+                <div className="blogUpdate">
+                    <label>Enter blog</label>
+                    <textarea
+                        name="blog"
+                        value={post.blog}
+                        onChange={handleChange}
+                    />
+                </div>
 
-                    <div className="authorInput">
-                        <label>Enter author name</label>
-                        <input 
-                            name="author"
-                            type="text"
-                            value={post.author} 
-                            onChange={handleChange} 
-                        />
-                    </div>
+                <div className="taglineInput">
+                    <label>Enter tagline</label>
+                    <input
+                        name="tagline"
+                        type="text"
+                        value={post.tagline}
+                        onChange={handleChange}
+                    />
+                </div>
 
-                    <div className="dateInput">
-                        <label>Current Date</label>
-                        <input 
-                            type="date"
-                            name="uploadDate"
-                            value={post.uploadDate}
-                            onChange={handleChange}
-                            // defaultValue={currentDate.toString()}
-                        />
-                    </div>
+                <div className="authorInput">
+                    <label>Enter author name</label>
+                    <input
+                        name="author"
+                        type="text"
+                        value={post.author}
+                        onChange={handleChange}
+                    />
+                </div>
 
-                    <div className="photoInput">
-                        <label>Photo</label>
-                        <input 
-                            type="file"
-                            accept=".png, .jpg, .jpeg"
-                            name="photo"
-                            onChange={handlePhoto} />
-                    </div>
+                <div className="dateInput">
+                    <label>Current Date</label>
+                    <input
+                        type="date"
+                        name="uploadDate"
+                        value={post.uploadDate}
+                        onChange={handleChange}
+                    // defaultValue={currentDate.toString()}
+                    />
+                </div>
 
-                    <div className="button-group">
-                            <button type="submit" className="btn btn-primary">Submit</button>
-                            <Link to="/list"><button>Cancel</button></Link>
-                    </div>
-               </form>
+                <div className="photoInput">
+                    <label>Photo</label>
+                    <input
+                        type="file"
+                        accept=".png, .jpg, .jpeg"
+                        name="photo"
+                        onChange={handlePhoto} />
+                </div>
+
+                <div className="button-group">
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <Link to="/list"><button>Cancel</button></Link>
+                </div>
+            </form>
 
         </div>
     );

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import {useAuthContext} from './useAuthContext';
-import {useNavigate} from "react-router-dom";
+import { useAuthContext } from './useAuthContext';
+import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
     const [error, setError] = useState(null);
@@ -13,7 +13,7 @@ export const useLogin = () => {
         setIsLoading(true);
         setError(null)
 
-        const userData = JSON.stringify({email, password});
+        const userData = JSON.stringify({ email, password });
 
         axios({
             method: 'POST',
@@ -24,7 +24,7 @@ export const useLogin = () => {
             }
         }).then((res) => {
             localStorage.setItem('user', JSON.stringify(res.data));
-            dispatch({type: 'LOGIN', payload: res.data});
+            dispatch({ type: 'LOGIN', payload: res.data });
             setIsLoading(false);
             navigate("/list");
         }).catch((error) => {
@@ -34,5 +34,5 @@ export const useLogin = () => {
         });
 
     }
-    return{login, isLoading, error}
+    return { login, isLoading, error }
 }

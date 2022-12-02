@@ -1,4 +1,4 @@
-import {connect} from "mongoose";
+import { connect } from "mongoose";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -19,7 +19,7 @@ const server = express();
 server.use(express.json());
 server.use(cors());
 server.use(express.static(__dirname + "/public"));
-server.use(bodyParser.urlencoded({extended: false}));
+server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 
 //* Database Setup
@@ -33,8 +33,8 @@ connect(dbURL)
           log.error(err);
           process.exit(1);
      });
- 
+
 //* Routing
-server.use(indexRouter);
+server.use('/home', indexRouter);
 server.use('/blog', blogRouter);
 server.use('/user', userRouter);

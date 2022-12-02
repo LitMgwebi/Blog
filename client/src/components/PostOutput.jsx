@@ -1,18 +1,18 @@
-function PostOutput({post, title}){
-    return(
+function PostOutput({ post, title }) {
+    return (
         <div className="postOutput">
             <h1>{title}</h1>
-            <br/>
+            <br />
             <h2>{post.title}</h2>
-            <br/>
-            <img src={`/media/${post.photo}`} alt="ThePhoto"/>
-            <br/>
+            <br />
+            <img src={`/media/${post.photo}`} alt={post.title} />
+            <br />
             <h3>{post.author}</h3>
-            <br/>
+            <br />
             <p>{post.tagline}</p>
-            <br/>
+            <br />
             <p>{post.blog}</p>
-            <br/>
+            <br />
             <p>{post.uploadDate}</p>
         </div>
     )
