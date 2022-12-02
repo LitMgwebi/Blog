@@ -6,9 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const bcrypt = require("bcrypt");
 const validator_1 = __importDefault(require("validator"));
-// interface UserModel extends Model<IUser>{
-//     signup: object;
-// }
 const userSchema = new mongoose_1.Schema({
     email: {
         type: String,
@@ -62,18 +59,5 @@ const userSchema = new mongoose_1.Schema({
         }
     }
 });
-//static signup method
-// userSchema.static('signup', async(email, password) => {
-//     //@ts-ignore
-//     const  exists = await this.findOne({email})
-//     if(exists){
-//         throw Error("Email already exists, please signup with a different email")
-//     }
-//     const salt = await bcrypt.genSalt(10)
-//     const hash = await bcrypt.hash(password, salt);
-//     //@ts-ignore
-//     const user = await this.create({email, password: hash})
-//     return user;
-// });
 const User = (0, mongoose_1.model)('User', userSchema);
 exports.default = User;

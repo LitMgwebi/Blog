@@ -35,6 +35,6 @@ server.use(body_parser_1.default.json());
     process.exit(1);
 });
 //* Routing
-server.use(indexController_1.default);
+server.use('/home', indexController_1.default);
 server.use('/blog', blogController_1.default);
 server.use('/user', userController_1.default);

@@ -16,7 +16,7 @@ router.use(requireAuth_1.default);
 //#region Helper functions
 const storage = multer_1.default.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '../client/src/media');
+        cb(null, '../client/public/media');
     },
     filename: function (req, file, cb) {
         cb(null, (0, uuid_1.v4)() + '-' + Date.now() + path_1.default.extname(file.originalname));
@@ -89,7 +89,6 @@ router.post("/add", upload.single('photo'), async (req, res) => {
         //@ts-ignore
         user_id: req.user._id
     });
-    console.log(blog);
     try {
         await blog.save();
         res.status(201).send({
@@ -109,7 +108,7 @@ router.post("/add", upload.single('photo'), async (req, res) => {
 });
 //#endregion
 //#region PUT
-router.put('/edit/:id', async (req, res) => {
+router.put('/edit/:id', upload.single('photo'), async (req, res) => {
     let blog = null;
     try {
         blog = await Blog_1.default.findById(req.params.id);
@@ -118,7 +117,8 @@ router.put('/edit/:id', async (req, res) => {
         blog.uploadDate = req.body.uploadDate;
         blog.author = req.body.author;
         blog.tagline = req.body.tagline;
-        await blog.save();
+        blog.photo = req.file.filename,
+            await blog.save();
         res.status(201).send({
             blog: blog,
             error: null,
