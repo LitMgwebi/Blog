@@ -31,24 +31,25 @@ code {
 
 }
 
+/* Content Container Configuration */
 #ContentContainer {
   background-color: grey;
   height: 30rem;
   display: flex;
-  /* flex-flow: column wrap; */
-  /* justify-content: center; */
   width: 90%;
-  /* overflow: auto; */
 }
-
 .section{
   width: 20%;
   background-color: blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .content{
   background-color: green;
   width: 80%;
   display: flex;
+  justify-content: center;
   flex-flow: row wrap;
   overflow: auto;
 }

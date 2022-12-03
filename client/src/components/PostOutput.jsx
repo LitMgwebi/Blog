@@ -1,8 +1,6 @@
-function PostOutput({ post, title }) {
+function PostOutput({ post }) {
     return (
         <div className="postOutput">
-            <h1>{title}</h1>
-            <br />
             <h2>{post.title}</h2>
             <br />
             <img src={`/media/${post.photo}`} alt={post.title} />
