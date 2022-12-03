@@ -8,7 +8,7 @@ function Blog() {
 
     const { post, isPending, error } = GetOne(id);
     return (
-        <div id="ContentContainer">
+        <div id="Blog">
             {error && <div className="error">{error}</div>}
             {isPending && <div>Loading...</div>}
             {post && <PostOutput post={post} title="Blog" />}

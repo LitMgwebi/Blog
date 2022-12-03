@@ -5,6 +5,7 @@ import { GetOneSecured } from "../../hooks/useAxiosGet";
 import log from "../../config/logging";
 import axios from "axios";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import ProjectHeader from "../../components/ProjectHeader";
 
 function Record() {
      const location = useLocation();
@@ -43,21 +44,28 @@ function Record() {
 
      return (
           <div id="ContentContainer">
-               {error && <div className="error">{error}</div>}
-               {isPending && <div>Loading...</div>}
-               {post && <PostOutput post={post} title="Record" />}
+               <div className="section">
+                    {error && <div className="error">{error}</div>}
+                    {isPending && <div>Loading...</div>}
+                    
+                    <ProjectHeader header="Record"/>
+                    <div className="button-group">
+                         <Link to="/list"><button>Back</button></Link>
+                         <Link
+                              to={`/edit/${id}`}
+                              state={{ stateId: id }}
+                         >
+                              <button> Edit </button>
+                         </Link>
+                         <button onClick={handleConfirm}>
+                              Delete
+                         </button>
+                    </div>
+               </div>
 
-               <div className="button-group">
-                    <Link to="/list"><button>Back</button></Link>
-                    <Link
-                         to={`/edit/${id}`}
-                         state={{ stateId: id }}
-                    >
-                         <button> Edit </button>
-                    </Link>
-                    <button onClick={handleConfirm}>
-                         Delete
-                    </button>
+               <div className="content">
+
+                    {post && <PostOutput post={post} />}
                </div>
           </div>
      )

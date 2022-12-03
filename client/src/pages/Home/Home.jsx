@@ -6,14 +6,18 @@ function Home() {
 
     return (
         <div id="ContentContainer">
-            {error && <div className="error">{error}</div>}
-            {isPending && <div>Loading...</div>}
-            <h1>Blog Site</h1>
-            {posts && posts.map((post, i) => {
-                return (
-                    <PostCard post={post} baseURL="/" />
-                );
-            })}
+            <div className="section">
+                {error && <div className="error">{error}</div>}
+                {isPending && <div>Loading...</div>}
+                <h1>Blog Site</h1>
+            </div>
+            <div className='content'>
+                {posts && posts.map((post, i) => {
+                    return (
+                        <PostCard post={post} baseURL="/" />
+                    );
+                })}
+            </div>
         </div>
     )
 }

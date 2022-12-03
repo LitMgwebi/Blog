@@ -7,15 +7,19 @@ function List() {
 
     return (
         <div id="ContentContainer">
-            {error && <div className="error">{error}</div>}
-            {isPending && <div>Loading...</div>}
-            <h1>Dashboard</h1>
-            <Link to="/add">Add</Link>
-            {posts && posts.map((post, i) => {
-                return (
-                    <PostCard post={post} baseURL="/record/" />
-                )
-            })}
+            <div className="section">
+                {error && <div className="error">{error}</div>}
+                {isPending && <div>Loading...</div>}
+                <h1>Dashboard</h1>
+                <Link to="/add">Add</Link>
+            </div>
+            <div className="content">
+                {posts && posts.map((post, i) => {
+                    return (
+                        <PostCard post={post} baseURL="/record/" />
+                    )
+                })}
+            </div>
         </div>
     )
 }

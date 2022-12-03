@@ -62,10 +62,16 @@ function Add() {
         navigate("/list");
     }
     return (
-        <div className="contentContainer">
-            {error && <div className="error">{error}</div>}
-            <h1>Create</h1>
-            <form method="POST" onSubmit={handleSubmit} encType='multipart/form-data'>
+        <form method="POST" id="ContentContainer" onSubmit={handleSubmit} encType='multipart/form-data'>
+            <div className="section">
+                {error && <div className="error">{error}</div>}
+                <h1>Create</h1>
+                <div className="button-group">
+                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <Link to="/list"><button>Cancel</button></Link>
+                </div>
+            </div>
+            <div className="content">
                 <div className="titleInput">
                     <label>Enter title</label>
                     <input
@@ -124,14 +130,8 @@ function Add() {
                         name="photo"
                         onChange={handlePhoto} />
                 </div>
-
-                <div className="button-group">
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                    <Link to="/list"><button>Cancel</button></Link>
-                </div>
-            </form>
-
-        </div>
+            </div>
+        </form>
     );
 }
 

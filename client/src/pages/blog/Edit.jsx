@@ -58,12 +58,24 @@ function Edit() {
         navigate(`/list`);
     }
     return (
-        <div id="ContentContainer">
-            {error && <div className="error">{error}</div>}
-            {isPending && <div>Loading...</div>}
+        <form method="PUT" id="ContentContainer" encType='multipart/form-data' onSubmit={handleSubmit}>
+            <div className="section">
+                {error && <div className="error">{error}</div>}
+                {isPending && <div>Loading...</div>}
 
-            <h1>Update</h1>
-            <form method="PUT" onSubmit={handleSubmit}>
+                <h1>Update</h1>
+                <div className="button-group">
+                    <button type="submit" className="btn btn-primary">Update</button>
+                    <Link
+                        to={`/record/${id}`}
+                        state={{ stateId: id }}
+                    >
+                        <button>Back</button>
+                    </Link>
+                </div>
+            </div>
+
+            <div className="content">
                 <div className="titleUpdate">
                     <input
                         type="text"
@@ -122,17 +134,8 @@ function Edit() {
                         name="photo"
                         onChange={handlePhoto} />
                 </div>
-                <div className="button-group">
-                    <button type="submit" className="btn btn-primary">Update</button>
-                    <Link
-                        to={`/record/${id}`}
-                        state={{ stateId: id }}
-                    >
-                        <button>Back</button>
-                    </Link>
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     )
 }
 

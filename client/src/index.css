@@ -35,31 +35,40 @@ code {
   background-color: grey;
   height: 30rem;
   display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
+  /* flex-flow: column wrap; */
+  /* justify-content: center; */
+  width: 90%;
+  /* overflow: auto; */
+}
+
+.section{
+  width: 20%;
+  background-color: blue;
+}
+.content{
+  background-color: green;
   width: 80%;
-  overflow: auto;
   display: flex;
+  flex-flow: row wrap;
+  overflow: auto;
 }
 
 /* Card*/
-.card {
-  width: 90%;
-  height: 8rem;
-  margin: 1rem;
-  display: grid;
-  grid-template-columns: 40% 60%;
+.card{
+  width: 15rem;
+  height: 20rem;
+  margin: 2rem;
 }
-.cardMedia {
-  height: auto;
-  width: auto;
+.cardContent:hover{
+  /* width: 265px; */
+  background-color:  var(--divColour);
 }
-
-.cardContent {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  background-color: blue;
+.cardMedia{
+  height: 10rem
+}
+.cardContent{
+  height: 10rem;
+  background-color: var(--cardColor);
 }
 
 .post {
