@@ -31,24 +31,59 @@ code {
 
 }
 
+/* Auth Components Config */
+label, input {
+  display: block;
+}
+input {
+  padding: 0.8rem;
+  margin: 1rem 0 2rem;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.signup, .login {
+  width: 15rem;
+  /* margin: 40px auto; */
+  /* background-color: aqua; */
+  padding: 2rem;
+
+  border: 1px solid #000000;
+  border-radius: 5px;
+}
+.authForm {
+  height: 30rem;
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
+
 /* Content Container Configuration */
 #ContentContainer {
   background-color: grey;
   height: 30rem;
   display: flex;
   width: 90%;
+  margin: auto;
 }
 .section{
   width: 20%;
-  background-color: blue;
+  background-color: peachpuff;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-flow: column wrap;
 }
+/* .ProjectHeader {
+  width: 100%
+} */
 .content{
   background-color: green;
   width: 80%;
   display: flex;
+  padding: 1rem;
   justify-content: center;
   flex-flow: row wrap;
   overflow: auto;
@@ -58,7 +93,7 @@ code {
 .card{
   width: 15rem;
   height: 20rem;
-  margin: 2rem;
+  margin: 1rem 2rem;
 }
 .cardContent:hover{
   /* width: 265px; */

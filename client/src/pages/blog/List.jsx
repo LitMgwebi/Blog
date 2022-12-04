@@ -1,6 +1,7 @@
 import { GetAllSecured } from "../../hooks/useAxiosGet";
 import { Link } from "react-router-dom";
 import PostCard from "../../components/PostCard";
+import ProjectHeader from "../../components/ProjectHeader";
 
 function List() {
     const { posts, isPending, error } = GetAllSecured();
@@ -10,15 +11,15 @@ function List() {
             <div className="section">
                 {error && <div className="error">{error}</div>}
                 {isPending && <div>Loading...</div>}
-                <h1>Dashboard</h1>
+                <ProjectHeader header="Dashboard"/>
                 <Link to="/add">Add</Link>
             </div>
             <div className="content">
-                {posts && posts.map((post, i) => {
+                {posts !== null ?  posts.map((post, i) => {
                     return (
                         <PostCard post={post} baseURL="/record/" />
                     )
-                })}
+                }): <div>Nothing yet...</div>}
             </div>
         </div>
     )
