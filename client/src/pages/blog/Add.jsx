@@ -3,6 +3,7 @@ import { useState } from "react";
 import log from "../../config/logging";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import FormFields from "../../components/FormFields";
 
 function Add() {
     // const currentDate = new Date();
@@ -72,64 +73,7 @@ function Add() {
                 </div>
             </div>
             <div className="content">
-                <div className="titleInput">
-                    <label>Enter title</label>
-                    <input
-                        type="text"
-                        name="title"
-                        value={post.title}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="blogUpdate">
-                    <label>Enter blog</label>
-                    <textarea
-                        name="blog"
-                        value={post.blog}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="taglineInput">
-                    <label>Enter tagline</label>
-                    <input
-                        name="tagline"
-                        type="text"
-                        value={post.tagline}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="authorInput">
-                    <label>Enter author name</label>
-                    <input
-                        name="author"
-                        type="text"
-                        value={post.author}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="dateInput">
-                    <label>Current Date</label>
-                    <input
-                        type="date"
-                        name="uploadDate"
-                        value={post.uploadDate}
-                        onChange={handleChange}
-                    // defaultValue={currentDate.toString()}
-                    />
-                </div>
-
-                <div className="photoInput">
-                    <label>Photo</label>
-                    <input
-                        type="file"
-                        accept=".png, .jpg, .jpeg"
-                        name="photo"
-                        onChange={handlePhoto} />
-                </div>
+                <FormFields post={post} handleChange={handleChange} handlePhoto={handlePhoto}/>
             </div>
         </form>
     );

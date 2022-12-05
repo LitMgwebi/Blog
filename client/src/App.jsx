@@ -9,6 +9,7 @@ import Edit from './pages/blog/Edit';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
 import './index.css';
+import useLocalStorage from "use-local-storage";
 import {
   BrowserRouter as Router,
   Routes,
@@ -20,10 +21,18 @@ import { useAuthContext } from "./hooks/useAuthContext";
 function App() {
   const { user } = useAuthContext();
 
+  const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const [theme, setTheme] = useLocalStorage('theme', defaultDark ? 'dark' : 'light');
+
+  const switchTheme = () => {
+    const newTheme = theme === 'light'
+      ? 'dark' : 'light';
+    setTheme(newTheme);
+  }
   return (
-    <div className="App">
+    <div className="App" data-theme={theme}>
       <Router>
-        <Header />
+        <Header theme={switchTheme} imgIcon={theme}/>
         <Routes>
           <Route path="/" element={user ? <Navigate to="/list" /> : <Home />} />
           <Route path="/:id" element={user ? <Navigate to="/list" /> : <Blog />} />

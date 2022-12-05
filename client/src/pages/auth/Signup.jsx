@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSignup } from "../../hooks/useSignup";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
     const [email, setEmail] = useState('');
@@ -30,7 +31,10 @@ const Signup = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <button disabled={isLoading} type='submit'>Sign up</button>
+                <div className="button-group">
+                    <Link to="/"><button>Back</button></Link>
+                    <button disabled={isLoading} type='submit'>Sign up</button>
+                </div>
 
                 {error && <div className="error">{error}</div>}
             </form>

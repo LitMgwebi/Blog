@@ -48,7 +48,7 @@ function Record() {
                     {error && <div className="error">{error}</div>}
                     {isPending && <div>Loading...</div>}
                     
-                    <ProjectHeader header="Record"/>
+                    <ProjectHeader header={post.title}/>
                     <div className="button-group">
                          <Link to="/list"><button>Back</button></Link>
                          <Link

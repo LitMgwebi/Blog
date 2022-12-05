@@ -12,7 +12,11 @@ function List() {
                 {error && <div className="error">{error}</div>}
                 {isPending && <div>Loading...</div>}
                 <ProjectHeader header="Dashboard"/>
-                <Link to="/add">Add</Link>
+                <div className="button-group">
+                    <button>
+                    <Link to="/add">Add</Link>
+                    </button>
+                </div>
             </div>
             <div className="content">
                 {posts !== null ?  posts.map((post, i) => {

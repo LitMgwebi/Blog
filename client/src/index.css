@@ -1,3 +1,18 @@
+:root {
+  --backgroundColor: #FAF1E6;
+  --primaryColour: #FDFAF6;
+  --secondaryColor: #E4EFE7;
+  --textColour: #064420;
+  
+}
+[data-theme='dark'] {
+  --backgroundColor: #000000;
+  --primaryColour: #282A3A;
+  --secondaryColor: #735F32;
+  --textColour: #C69749;
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +20,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: var(--textColour);
 }
 
 code {
@@ -18,38 +34,58 @@ code {
   text-align: center;
   align-items: center;
   height: 100vh;
-  width: 100vw
+  width: 100vw;
+  background-color: var(--backgroundColor);
 }
 
+/* Header Config*/
 #Header {
   position: sticky;
-  background-color: grey;
+  background-color: var(--primaryColour);
   top: 0;
   margin: 0 0 1rem;
   height: 5rem;
-  width: 100%
-
+  width: 100%;
+  display: inline-grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+}
+nav button {
+  padding: 0.4rem;
+  margin: 0 0.2rem;
+  border-radius: 4px;
+  cursor: pointer; 
+}
+#Header p{
+  cursor: pointer;
 }
 
 /* Auth Components Config */
-label, input {
-  display: block;
+label, input, textarea {
+  display: flex;
 }
-input {
-  padding: 0.8rem;
+input, textarea {
+  padding: 0.5rem;
   margin: 1rem 0 2rem;
-  width: 100%;
+  width: 15rem;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-sizing: border-box;
 }
+.formFields{
+  width: 100%;
+  margin: auto;
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+.formFields textarea {
+  height: 5rem
+}
 .signup, .login {
   width: 15rem;
-  /* margin: 40px auto; */
-  /* background-color: aqua; */
   padding: 2rem;
-
-  border: 1px solid #000000;
+  background-color: var(--secondaryColor);
   border-radius: 5px;
 }
 .authForm {
@@ -62,7 +98,6 @@ input {
 
 /* Content Container Configuration */
 #ContentContainer {
-  background-color: grey;
   height: 30rem;
   display: flex;
   width: 90%;
@@ -70,46 +105,79 @@ input {
 }
 .section{
   width: 20%;
-  background-color: peachpuff;
+  background-color: var(--primaryColour);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-flow: column wrap;
+  border-radius: 5px;
 }
-/* .ProjectHeader {
-  width: 100%
-} */
+a{
+  color: var(--textColour);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.button-group button {
+  padding: 0.4rem;
+  margin: 0 0.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .content{
-  background-color: green;
   width: 80%;
   display: flex;
   padding: 1rem;
   justify-content: center;
   flex-flow: row wrap;
   overflow: auto;
+  border-radius: 5px;
+
 }
 
 /* Card*/
 .card{
-  width: 15rem;
+  width: 13rem;
   height: 20rem;
   margin: 1rem 2rem;
 }
 .cardContent:hover{
   /* width: 265px; */
-  background-color:  var(--divColour);
+  background-color:  var(--primaryColour);
 }
 .cardMedia{
-  height: 10rem
+  height: 12rem
 }
 .cardContent{
-  height: 10rem;
-  background-color: var(--cardColor);
+  height: 8rem;
+  background-color: var(--secondaryColor);
 }
 
-.post {
-  text-align: left;
-  padding-left: 0.5rem;
+/* Blog display*/
+.postOutput{
+  overflow: auto;
+  width: 100%;
+  background-color: var(--secondaryColor);
+  display: flex;
+  flex-direction: column;
+}
+.postText{
+  height: 15rem;
+  display: grid;
+  grid-template-columns: 70% 30%;
+}
+.section1, .section2{
+  margin: 0.5rem;
+  padding: 0.5rem
+}
+.postImage{
+  margin:0.5rem;
+  padding: 0.5rem;
+  height: auto;
+}
+.postImage img{
+  width: 80%;
 }
 
 #Footer {
@@ -118,5 +186,5 @@ input {
   margin: 1rem 0 0;
   height: 4rem;
   bottom: 0;
-  background-color: grey;
+  background-color: var(--primaryColour);
 }

@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 import log from "../../config/logging";
 import { GetOneSecured } from "../../hooks/useAxiosGet";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import FormFields from "../../components/FormFields";
 
 function Edit() {
     const location = useLocation();
@@ -76,64 +77,7 @@ function Edit() {
             </div>
 
             <div className="content">
-                <div className="titleUpdate">
-                    <input
-                        type="text"
-                        name="title"
-                        value={post.title}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="blogUpdate">
-                    <textarea
-                        name="blog"
-                        value={post.blog}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="taglineInput">
-                    <label>Enter tagline</label>
-                    <input
-                        name="tagline"
-                        type="text"
-                        value={post.tagline}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="authorInput">
-                    <input
-                        name="author"
-                        type="text"
-                        value={post.author}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="dateInput">
-
-                    <input
-                        type="date"
-                        name="uploadDate"
-                        value={post.uploadDate}
-                        onChange={handleChange}
-                    // defaultValue={currentDate.toString()}
-                    />
-                </div>
-
-                <div className="photoInput">
-                    <div>
-                        <img src={`/media/${post.photo}`} alt={post.title} />
-                    </div>
-                    <label>Photo</label>
-                    <input
-                        type="file"
-                        accept=".png, .jpg, .jpeg"
-                        name="photo"
-                        onChange={handlePhoto} />
-                </div>
+                <FormFields post={post} handleChange={handleChange} handlePhoto={handlePhoto}/>
             </div>
         </form>
     )
