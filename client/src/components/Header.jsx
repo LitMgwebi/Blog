@@ -10,10 +10,12 @@ function Header({ theme, imgIcon }) {
     const handleClick = () => logout();
     return (
         <header id="Header">
-            <div>
-                <Link to="/">
-                    <span>Blogger</span>
-                </Link>
+            <div className="writing">
+                <div>
+                    <Link to="/">
+                        <span>Blogger</span>
+                    </Link>
+                </div>
                 <div className="headerButton">
                     {imgIcon === "dark" ? <p onClick={theme}>Sun</p>
                         : <p onClick={theme}>Night</p>}

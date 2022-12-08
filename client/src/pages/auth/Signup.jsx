@@ -32,8 +32,8 @@ const Signup = () => {
                 />
 
                 <div className="button-group">
-                    <Link to="/"><button>Back</button></Link>
                     <button disabled={isLoading} type='submit'>Sign up</button>
+                    <Link to="/"><button>Back</button></Link>
                 </div>
 
                 {error && <div className="error">{error}</div>}

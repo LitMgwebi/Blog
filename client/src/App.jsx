@@ -37,6 +37,7 @@ function App() {
           <Route path="/" element={user ? <Navigate to="/list" /> : <Home />} />
           <Route path="/:id" element={user ? <Navigate to="/list" /> : <Blog />} />
           <Route path="/list" element={user ? <List /> : <Navigate to="/" />} />
+          <Route path="/list" element={<List />} />
           <Route path="/add" element={user ? <Add /> : <Navigate to="/" />} />
           <Route path="/record/:id" element={user ? <Record /> : <Navigate to="/" />} />
           <Route path="edit/:id" element={user ? <Edit /> : <Navigate to="/" />} />

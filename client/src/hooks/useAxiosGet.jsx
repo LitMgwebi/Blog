@@ -51,7 +51,6 @@ const GetOneSecured = (id) => {
             setError("Did not recieve blog id, please navigate to list")
         }
     }, [id, user]);
-
     return { post, isPending, error, setPost, setError, setIsPending }
 }
 
@@ -62,7 +61,6 @@ const GetAllSecured = () => {
     const [isPending, setIsPending] = useState(true);
 
     useEffect(() => {
-        log.clear();
 
         if (user) {
             axios({

@@ -6,7 +6,7 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 import FormFields from "../../components/FormFields";
 
 function Add() {
-    // const currentDate = new Date();
+    const currentDate = new Date().toUTCString();
     const navigate = useNavigate();
     const { user } = useAuthContext();
     const [error, setError] = useState(null)
@@ -30,16 +30,12 @@ function Add() {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        if (!user) {
-            setError('You must be logged in')
-            return
-        }
 
         const formData = new FormData();
         formData.append('title', post.title);
         formData.append('blog', post.blog);
         formData.append('author', post.author)
-        formData.append('uploadDate', post.uploadDate)
+        formData.append('uploadDate', currentDate)
         formData.append('tagline', post.tagline)
         formData.append('photo', post.photo);
 
@@ -73,7 +69,7 @@ function Add() {
                 </div>
             </div>
             <div className="content">
-                <FormFields post={post} handleChange={handleChange} handlePhoto={handlePhoto}/>
+                <FormFields post={post} handleChange={handleChange} currentDate={currentDate} handlePhoto={handlePhoto} edit={false}/>
             </div>
         </form>
     );

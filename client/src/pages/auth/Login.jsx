@@ -10,7 +10,11 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        await login(email, password)
+        try{
+            await login(email, password)
+        }catch(error){
+            console.error(error)
+        }
     }
     return (
         <div className="authForm">
@@ -31,8 +35,8 @@ const Login = () => {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <div className="button-group">
-                    <Link to="/"><button>Back</button></Link>
                     <button disabled={isLoading} type='submit'>Login</button>
+                    <Link to="/"><button>Back</button></Link>
                 </div>
 
                 {error && <div className="error">{error}</div>}

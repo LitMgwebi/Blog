@@ -9,7 +9,7 @@ import FormFields from "../../components/FormFields";
 function Edit() {
     const location = useLocation();
     const navigate = useNavigate();
-    // const currentDate = new Date();
+    const currentDate = new Date().toUTCString();
     const id = location.state.stateId;
     const { user } = useAuthContext();
 
@@ -24,20 +24,14 @@ function Edit() {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        log.clear();
-        if (!user) {
-            setError('You must be logged in')
-            return
-        }
-
         const formData = new FormData();
         formData.append('title', post.title);
         formData.append('blog', post.blog);
         formData.append('author', post.author)
-        formData.append('uploadDate', post.uploadDate)
+        formData.append('uploadDate', currentDate)
         formData.append('tagline', post.tagline)
         formData.append('photo', post.photo);
-
+        
         axios({
             method: 'PUT',
             url: `http://localhost:4050/blog/edit/${id}`,
@@ -59,7 +53,7 @@ function Edit() {
         navigate(`/list`);
     }
     return (
-        <form method="PUT" id="ContentContainer" encType='multipart/form-data' onSubmit={handleSubmit}>
+        <form id="ContentContainer" encType='multipart/form-data' onSubmit={handleSubmit}>
             <div className="section">
                 {error && <div className="error">{error}</div>}
                 {isPending && <div>Loading...</div>}
@@ -77,7 +71,7 @@ function Edit() {
             </div>
 
             <div className="content">
-                <FormFields post={post} handleChange={handleChange} handlePhoto={handlePhoto}/>
+                <FormFields post={post} handleChange={handleChange} currentDate={currentDate}handlePhoto={handlePhoto} edit={true}/>
             </div>
         </form>
     )

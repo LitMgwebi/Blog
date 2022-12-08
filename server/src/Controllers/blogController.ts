@@ -124,8 +124,11 @@ router.put('/edit/:id', upload.single('photo'), async (req: Request, res: Respon
         blog.uploadDate = req.body.uploadDate;
         blog.author = req.body.author;
         blog.tagline = req.body.tagline;
-        blog.photo = req.file.filename,
-            await blog.save();
+        blog.photo = req.body.photo;
+        //@ts-ignore
+        blog.user_id =  req.user._id
+        
+        await blog.save();
         res.status(201).send({
             blog: blog,
             error: null,
