@@ -82,17 +82,18 @@ router.get("/record/:id", async (req: Request, res: Response) => {
 //#region POST
 
 router.post("/add", upload.single('photo'), async (req: Request, res: Response) => {
-    const blog: any = new Blog({
-        title: req.body.title,
-        blog: req.body.blog,
-        uploadDate: req.body.uploadDate,
-        author: req.body.author,
-        tagline: req.body.tagline,
-        photo: req.file.filename,
-        //@ts-ignore
-        user_id: req.user._id
-    });
+    let blog: any
     try {
+        blog = new Blog({
+            title: req.body.title,
+            blog: req.body.blog,
+            uploadDate: req.body.uploadDate,
+            author: req.body.author,
+            tagline: req.body.tagline,
+            photo: req.body.photo,
+            //@ts-ignore
+            user_id: req.user._id
+        });
         await blog.save();
         res.status(201).send({
             blog: blog,
@@ -126,8 +127,8 @@ router.put('/edit/:id', upload.single('photo'), async (req: Request, res: Respon
         blog.tagline = req.body.tagline;
         blog.photo = req.body.photo;
         //@ts-ignore
-        blog.user_id =  req.user._id
-        
+        blog.user_id = req.user._id
+
         await blog.save();
         res.status(201).send({
             blog: blog,

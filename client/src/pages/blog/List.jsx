@@ -19,11 +19,11 @@ function List() {
                 </div>
             </div>
             <div className="content">
-                {posts !== null ?  posts.map((post, i) => {
+                {posts && posts.map((post, i) => {
                     return (
                         <PostCard post={post} baseURL="/record/" />
-                    )
-                }): <div>Nothing yet...</div>}
+                    );
+                })}
             </div>
         </div>
     )

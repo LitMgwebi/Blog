@@ -4,7 +4,6 @@ import { useLocation } from "react-router";
 import log from "../../config/logging";
 import { GetOneSecured } from "../../hooks/useAxiosGet";
 import { useAuthContext } from "../../hooks/useAuthContext";
-import FormFields from "../../components/FormFields";
 
 function Edit() {
     const location = useLocation();
@@ -13,25 +12,20 @@ function Edit() {
     const id = location.state.stateId;
     const { user } = useAuthContext();
 
-    const { post, setPost, isPending, error, setError, setIsPending } = GetOneSecured(id);
+    const { post, isPending, error, setError, setIsPending } = GetOneSecured(id);
 
-    const handleChange = (e) => {
-        setPost({ ...post, [e.target.name]: e.target.value });
-    }
-    const handlePhoto = (e) => {
-        setPost({ ...post, photo: e.target.files[0] });
-        console.log(post.photo)
-    }
+    const { title, setTitle, blog, setBlog, author, setAuthor, uploadDate, setUploadDate, tagline, setTagline, photo, setPhoto } = post;
     function handleSubmit(e) {
         e.preventDefault();
+
         const formData = new FormData();
-        formData.append('title', post.title);
-        formData.append('blog', post.blog);
-        formData.append('author', post.author)
+        formData.append('title', title);
+        formData.append('blog', blog);
+        formData.append('author', author)
         formData.append('uploadDate', currentDate)
-        formData.append('tagline', post.tagline)
-        formData.append('photo', post.photo);
-        
+        formData.append('tagline', tagline)
+        formData.append('photo', photo);
+
         axios({
             method: 'PUT',
             url: `http://localhost:4050/blog/edit/${id}`,
@@ -65,13 +59,76 @@ function Edit() {
                         to={`/record/${id}`}
                         state={{ stateId: id }}
                     >
-                        <button>Back</button>
+                        <button className="btn btn-secondary">Back</button>
                     </Link>
                 </div>
             </div>
 
             <div className="content">
-                <FormFields post={post} handleChange={handleChange} currentDate={currentDate}handlePhoto={handlePhoto} edit={true}/>
+                <div className="formFields">
+                    <div className="titleInput">
+                        <label>Title:</label>
+                        <input
+                            type="text"
+                            name="title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="blogInput">
+                        <label>Blog:</label>
+                        <textarea
+                            name="blog"
+                            value={blog}
+                            onChange={(e) => setBlog(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="taglineInput">
+                        <label>Tagline:</label>
+                        <input
+                            name="tagline"
+                            type="text"
+                            value={tagline}
+                            onChange={(e) => setTagline(e.target.value)}
+                        />
+                    </div>
+                </div>
+
+                <div>
+                    <div className="authorInput">
+                        <label>Author:</label>
+                        <input
+                            name="author"
+                            type="text"
+                            value={author}
+                            onChange={(e) => setAuthor(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="dateInput">
+                        <label>Date:</label>
+                        <p>{currentDate}</p>
+                    </div>
+
+                    <div className="photo">
+                        <div className="photoOutput">
+                            <label>Current Photo:</label>
+                            <img src={`/media/${post.photo}`} alt={post.title} />
+                        </div>
+
+                        <div className="photoInput">
+                            <label>Photo:</label>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                name="photo"
+                                onChange={(e) => setPhoto(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
     )

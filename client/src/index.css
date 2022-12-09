@@ -13,8 +13,9 @@
 }
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 html {
+  color: var(--textColour);
+}
 
-  color: var(--textColour);}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -418,6 +419,11 @@ a:hover {
   .section{
     width: 100%;
   }
+
+  .button-group button {
+    padding: 0.3rem;
+    margin: 0 0.2rem 0.8rem;
+  }
   .postOutput{
     justify-content: center;
   }
@@ -432,8 +438,20 @@ a:hover {
     min-height: 100%;
     overflow: auto;
   }
-  #Footer{
+  .formFields{
+    margin: auto;
+    align-items: center;
+    display: flex;
+    flex-flow: column ;
+    padding: 0.5rem;
+  }
+  #Header {
+    /* height: 10rem; */
+    padding: 1rem
+  }
+  #Footer {
     position: relative;
+    height: 5rem;
   }
 }
 

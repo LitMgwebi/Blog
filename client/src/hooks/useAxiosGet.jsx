@@ -4,18 +4,16 @@ import axios from "axios";
 import { useAuthContext } from "./useAuthContext";
 
 const GetOneSecured = (id) => {
-    const [post, setPost] = useState({
-        title: "",
-        blog: "",
-        author: "",
-        uploadDate: "",
-        tagline: "",
-        photo: "",
-    })
+    const [title, setTitle] = useState("");
+    const [blog, setBlog] = useState("");
+    const [author, setAuthor] = useState("");
+    const [uploadDate, setUploadDate] = useState("");
+    const [tagline, setTagline] = useState("");
+    const [photo, setPhoto] = useState("");
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
     const { user } = useAuthContext();
-
+    
     useEffect(() => {
         if (id !== null) {
             if (user) {
@@ -26,18 +24,12 @@ const GetOneSecured = (id) => {
                         'Authorization': `Bearer ${user.token}`
                     }
                 }).then((res) => {
-                    const updatedPost = {
-                        title: res.data.blog.title,
-                        blog: res.data.blog.blog,
-                        author: res.data.blog.author,
-                        uploadDate: res.data.blog.uploadDate,
-                        tagline: res.data.blog.tagline,
-                        photo: res.data.blog.photo
-                    };
-                    setPost(post => ({
-                        ...post,
-                        ...updatedPost
-                    }));
+                    setTitle(res.data.blog.title);
+                    setBlog(res.data.blog.blog);
+                    setAuthor(res.data.blog.author);
+                    setUploadDate(res.data.blog.uploadDate);
+                    setTagline(res.data.blog.tagline);
+                    setPhoto(res.data.blog.photo);
                     setIsPending(false);
                     setError(null);
                 }).catch((error) => {
@@ -51,7 +43,21 @@ const GetOneSecured = (id) => {
             setError("Did not recieve blog id, please navigate to list")
         }
     }, [id, user]);
-    return { post, isPending, error, setPost, setError, setIsPending }
+    const post = {
+        title: title,
+        blog: blog,
+        uploadDate: uploadDate,
+        author: author,
+        tagline: tagline,
+        photo: photo,
+        setTitle: setTitle,
+        setAuthor: setAuthor,
+        setBlog: setBlog,
+        setUploadDate: setUploadDate,
+        setTagline: setTagline,
+        setPhoto: setPhoto
+    }
+    return { post, isPending, error, setError, setIsPending }
 }
 
 const GetAllSecured = () => {
@@ -97,18 +103,14 @@ const GetAll = () => {
         axios({
             method: "GET",
             url: "http://localhost:4050/home/",
-            // headers: {
-            //     'Authorization': `Bearer ${user.token}`
-            // }
         }).then((res) => {
             if (res.data.error != null) {
-                log.error(res.data.error);
-                return;
-            }
-            setPosts(res.data.blog)
-            setIsPending(false);
-            setError(null);
-
+                    log.error(res.data.error);
+                    return;
+                }
+                setPosts(res.data.blog)
+                setIsPending(false);
+                setError(null);
         }).catch((error) => {
             setIsPending(false);
             setError(error.response.data.error);
@@ -135,9 +137,6 @@ const GetOne = (id) => {
         axios({
             method: "GET",
             url: `http://localhost:4050/home/${id}`,
-            // headers: {
-            //     'Authorization': `Bearer ${user.token}`
-            // }
         }).then((res) => {
             const updatedPost = {
                 title: res.data.blog.title,

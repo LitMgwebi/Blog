@@ -24,7 +24,6 @@ function Record() {
           if (!user) {
                return
           }
-          log.clear();
           axios({
                method: "DELETE",
                url: `http://localhost:4050/blog/remove/${id}`,
