@@ -10,16 +10,17 @@ function PostCard({ post, baseURL }) {
                 to={baseURL + post._id}
                 state={{ stateId: post._id }}
             >
-                <CardMedia
+                {/* <CardMedia
                     component="img"
                     alt={post.title}
                     image={`/media/${post.photo}`}
                     className="cardMedia"
-                />
+                /> */}
                 <CardContent className='cardContent'>
-                    <h3 className="cardHeader">{post.title}</h3>
+                    <h3 className="cardHeadline">{post.headline}</h3>
+                    <h4 className="cardSubHeadline">{post.subheadline}</h4>
                     <h5>{post.author}</h5>
-                    <p className="cardTagLine">{post.tagLine}</p>
+                    <p className="cardTagLine">{post.tag}</p>
                 </CardContent>
 
             </Link>

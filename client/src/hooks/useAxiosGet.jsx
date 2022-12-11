@@ -4,12 +4,15 @@ import axios from "axios";
 import { useAuthContext } from "./useAuthContext";
 
 const GetOneSecured = (id) => {
-    const [title, setTitle] = useState("");
-    const [blog, setBlog] = useState("");
+    const [headline, setHeadline] = useState("");
+    const [content, setContent] = useState("");
     const [author, setAuthor] = useState("");
     const [uploadDate, setUploadDate] = useState("");
-    const [tagline, setTagline] = useState("");
-    const [photo, setPhoto] = useState("");
+    const [tag, setTag] = useState("");
+    // const [photo, setPhoto] = useState("");
+    const [introduction, setIntroduction] = useState("");
+    const [subHeadline, setSubHeadline] = useState("");
+    const [conclusion, setConclusion] = useState("");
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
     const { user } = useAuthContext();
@@ -24,12 +27,16 @@ const GetOneSecured = (id) => {
                         'Authorization': `Bearer ${user.token}`
                     }
                 }).then((res) => {
-                    setTitle(res.data.blog.title);
-                    setBlog(res.data.blog.blog);
+                    setHeadline(res.data.blog.headline);
+                    setContent(res.data.blog.content);
                     setAuthor(res.data.blog.author);
                     setUploadDate(res.data.blog.uploadDate);
-                    setTagline(res.data.blog.tagline);
-                    setPhoto(res.data.blog.photo);
+                    setTag(res.data.blog.tag);
+                    // setPhoto(res.data.blog.photo);
+                    setIntroduction(res.data.blog.introduction);
+                    setSubHeadline(res.data.blog.subHeadline);
+                    setConclusion(res.data.blog.conclusion);
+
                     setIsPending(false);
                     setError(null);
                 }).catch((error) => {
@@ -44,18 +51,24 @@ const GetOneSecured = (id) => {
         }
     }, [id, user]);
     const post = {
-        title: title,
-        blog: blog,
+        headline: headline,
+        content: content,
         uploadDate: uploadDate,
         author: author,
-        tagline: tagline,
-        photo: photo,
-        setTitle: setTitle,
+        tag: tag,
+        introduction: introduction,
+        conclusion: conclusion,
+        subHeadline: headline,
+        // photo: photo,
+        setHeadline: setHeadline,
         setAuthor: setAuthor,
-        setBlog: setBlog,
+        setContent: setContent,
         setUploadDate: setUploadDate,
-        setTagline: setTagline,
-        setPhoto: setPhoto
+        setTag: setTag,
+        setIntroduction: setIntroduction,
+        setConclusion: setConclusion,
+        setSubHeadline: setSubHeadline,
+        // setPhoto: setPhoto
     }
     return { post, isPending, error, setError, setIsPending }
 }
@@ -123,12 +136,14 @@ const GetAll = () => {
 
 const GetOne = (id) => {
     const [post, setPost] = useState({
-        title: "",
-        blog: "",
-        author: "",
+        headline: "",
+        content: "",
         uploadDate: "",
-        tagline: "",
-        photo: "",
+        author: "",
+        tag: "",
+        introduction: "",
+        conclusion: "",
+        subHeadline: "",
     })
     const [isPending, setIsPending] = useState(true);
     const [error, setError] = useState(null);
@@ -139,12 +154,14 @@ const GetOne = (id) => {
             url: `http://localhost:4050/home/${id}`,
         }).then((res) => {
             const updatedPost = {
-                title: res.data.blog.title,
-                blog: res.data.blog.blog,
+                headline: res.data.blog.headline,
+                content: res.data.blog.content,
                 author: res.data.blog.author,
                 uploadDate: res.data.blog.uploadDate,
-                tagline: res.data.blog.tagline,
-                photo: res.data.blog.photo
+                tag: res.data.blog.tag,
+                introduction: res.data.blog.introduction,
+                conclusion: res.data.blog.conclusion,
+                subHeadline: res.data.blog.subHeadline,
             };
             setPost(post => ({
                 ...post,

@@ -4,7 +4,7 @@ import ProjectHeader from "../../components/ProjectHeader";
 import { GetOne } from "../../hooks/useAxiosGet";
 import { Link } from "react-router-dom";
 
-function Blog() {
+function Entry() {
     const location = useLocation();
     const id = location.state.stateId;
 
@@ -14,17 +14,17 @@ function Blog() {
             <div className="section">
                 {error && <div className="error">{error}</div>}
                 {isPending && <div>Loading...</div>}
-                <ProjectHeader header={post.title} />
+                <ProjectHeader header={post.headline} />
                 <div className="button-group">
                     <Link to="/"><button>Back</button></Link>
 
                 </div>
             </div>
-            <div className="content">
+            <div className="information">
                 {post && <PostOutput post={post} />}
             </div>
         </div>
     )
 }
 
-export default Blog;
+export default Entry;

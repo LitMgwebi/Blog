@@ -11,7 +11,7 @@ function Home() {
                 {isPending && <div>Loading...</div>}
                 <h1>Blog Site</h1>
             </div>
-            <div className='content'>
+            <div className='information'>
                 {posts && posts.map((post, i) => {
                     return (
                         <PostCard post={post} baseURL="/" />

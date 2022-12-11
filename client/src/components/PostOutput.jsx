@@ -3,18 +3,28 @@ function PostOutput({ post }) {
         <div className="postOutput">
             <div className="postText">
                 <div className="section1">
-                    <p>{post.blog}</p>
+                    <p>
+                        {post.introduction}
+                        <br/>
+                        {post.subHeadline}
+                        <br/>
+                        {post.blog}
+                        <br/>
+                        {post.conclusion}
+                    </p>
 
                 </div>
                 <div className="section2">
                     <h3>{post.author}</h3>
-                    <p>{post.tagline}</p>
+                    <p>{post.tag}</p>
                     <p>{post.uploadDate}</p>
                 </div>
+
+
             </div>
-            <div className="postImage">
+            {/* <div className="postImage">
                 <img src={`/media/${post.photo}`} alt={post.title} />
-            </div>
+            </div> */}
         </div>
     )
 }

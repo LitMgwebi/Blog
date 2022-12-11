@@ -8,24 +8,26 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 function Edit() {
     const location = useLocation();
     const navigate = useNavigate();
-    const currentDate = new Date().toUTCString();
+    const currentDate = new Date().toLocaleDateString();
     const id = location.state.stateId;
     const { user } = useAuthContext();
 
     const { post, isPending, error, setError, setIsPending } = GetOneSecured(id);
 
-    const { title, setTitle, blog, setBlog, author, setAuthor, uploadDate, setUploadDate, tagline, setTagline, photo, setPhoto } = post;
+    const { headline, content, uploadDate, author, tag, introduction, conclusion, subHeadline, setHeadline, setAuthor, setContent, setUploadDate, setTag, setIntroduction, setConclusion, setSubHeadline } = post;
     function handleSubmit(e) {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append('title', title);
-        formData.append('blog', blog);
-        formData.append('author', author)
-        formData.append('uploadDate', currentDate)
-        formData.append('tagline', tagline)
-        formData.append('photo', photo);
-
+        formData.append('headline', headline);
+        formData.append('content', content);
+        formData.append('author', user.email);
+        // formData.append('photo', photo);
+        formData.append('uploadDate', currentDate);
+        formData.append('tag', tag);
+        formData.append('introduction', introduction);
+        formData.append('subHeadline', subHeadline);
+        formData.append('conclusion', conclusion);
         axios({
             method: 'PUT',
             url: `http://localhost:4050/blog/edit/${id}`,
@@ -39,6 +41,7 @@ function Edit() {
             setIsPending(false);
             setError(null);
         }).catch((error) => {
+            log.error(error.response.data.error);
             log.error(error.message)
             setIsPending(false);
             setError(error.response.data.error);
@@ -64,70 +67,85 @@ function Edit() {
                 </div>
             </div>
 
-            <div className="content">
+            <div className="information">
                 <div className="formFields">
-                    <div className="titleInput">
-                        <label>Title:</label>
+                    <div className="headlineInput">
+                        <label>Headline:</label>
                         <input
                             type="text"
-                            name="title"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
+                            name="headline"
+                            value={headline}
+                            onChange={(e) => setHeadline(e.target.value)}
                         />
                     </div>
 
-                    <div className="blogInput">
-                        <label>Blog:</label>
+                    <div className="subHeadlineInput">
+                        <label>Subheadline:</label>
+                        <input
+                            type="text"
+                            name="subHeadline"
+                            value={subHeadline}
+                            onChange={(e) => setSubHeadline(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="introductionInput">
+                        <label>Introduction:</label>
                         <textarea
-                            name="blog"
-                            value={blog}
-                            onChange={(e) => setBlog(e.target.value)}
+                            name="introduction"
+                            value={introduction}
+                            onChange={(e) => setIntroduction(e.target.value)}
                         />
                     </div>
 
-                    <div className="taglineInput">
-                        <label>Tagline:</label>
+                    <div className="contentInput">
+                        <label>Content:</label>
+                        <textarea
+                            name="content"
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="conclusionInput">
+                        <label>Conclusion:</label>
+                        <textarea
+                            name="conclusion"
+                            value={conclusion}
+                            onChange={(e) => setConclusion(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="tagInput">
+                        <label>Tag:</label>
                         <input
-                            name="tagline"
+                            name="tag"
                             type="text"
-                            value={tagline}
-                            onChange={(e) => setTagline(e.target.value)}
+                            value={tag}
+                            onChange={(e) => setTag(e.target.value)}
                         />
                     </div>
-                </div>
 
-                <div>
-                    <div className="authorInput">
+                    {/* <div className="authorInput">
                         <label>Author:</label>
-                        <input
-                            name="author"
-                            type="text"
-                            value={author}
-                            onChange={(e) => setAuthor(e.target.value)}
-                        />
+                        <p>{user.email}</p>
                     </div>
 
                     <div className="dateInput">
                         <label>Date:</label>
                         <p>{currentDate}</p>
-                    </div>
+                    </div> */}
 
-                    <div className="photo">
-                        <div className="photoOutput">
-                            <label>Current Photo:</label>
-                            <img src={`/media/${post.photo}`} alt={post.title} />
-                        </div>
+                    {/* <div className="photoInput">
+                        <label>Photo:</label>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            name="photo"
+                            onChange={(e) => setPhoto(e.target.files[0])}
+                        />
+                    </div> */}
 
-                        <div className="photoInput">
-                            <label>Photo:</label>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                name="photo"
-                                onChange={(e) => setPhoto(e.target.value)}
-                            />
-                        </div>
-                    </div>
                 </div>
             </div>
         </form>

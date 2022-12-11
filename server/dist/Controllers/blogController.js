@@ -80,14 +80,18 @@ router.get("/record/:id", async (req, res) => {
 //#region POST
 router.post("/add", upload.single('photo'), async (req, res) => {
     let blog;
+    console.log(req.body);
     try {
         blog = new Blog_1.default({
-            title: req.body.title,
-            blog: req.body.blog,
+            headline: req.body.headline,
+            content: req.body.content,
             uploadDate: req.body.uploadDate,
             author: req.body.author,
-            tagline: req.body.tagline,
-            photo: req.body.photo,
+            tag: req.body.tag,
+            introduction: req.body.introduction,
+            conclusion: req.body.conclusion,
+            subHeadline: req.body.subHeadline,
+            // photo: req.body.photo,
             //@ts-ignore
             user_id: req.user._id
         });
@@ -110,32 +114,33 @@ router.post("/add", upload.single('photo'), async (req, res) => {
 //#endregion
 //#region PUT
 router.put('/edit/:id', upload.single('photo'), async (req, res) => {
-    let blog = null;
-    try {
-        blog = await Blog_1.default.findById(req.params.id);
-        blog.title = req.body.title;
-        blog.blog = req.body.blog;
-        blog.uploadDate = req.body.uploadDate;
-        blog.author = req.body.author;
-        blog.tagline = req.body.tagline;
-        blog.photo = req.body.photo;
+    const blog = {
+        title: req.body.title,
+        blog: req.body.blog,
+        uploadDate: req.body.uploadDate,
+        author: req.body.author,
+        tagline: req.body.tagline,
+        photo: req.body.photo,
         //@ts-ignore
-        blog.user_id = req.user._id;
-        await blog.save();
+        user_id: req.user._id
+    };
+    //@ts-ignore
+    await Blog_1.default.findOneAndUpdate(req.params.id, { $set: blog }, { new: true })
+        .then(post => {
         res.status(201).send({
             blog: blog,
             error: null,
             message: "Record edited successfully"
         });
-    }
-    catch (err) {
+    })
+        .catch(err => {
         logging_1.default.error(err.message);
         res.status(400).send({
             blog: blog,
             error: err.message,
             message: "Could not edit record"
         });
-    }
+    });
 });
 //#endregion
 //#region DELETE

@@ -47,22 +47,22 @@ function Record() {
                     {error && <div className="error">{error}</div>}
                     {isPending && <div>Loading...</div>}
                     
-                    <ProjectHeader header={post.title}/>
+                    <ProjectHeader header={post.headline}/>
                     <div className="button-group">
                          <Link to="/list"><button>Back</button></Link>
-                         <Link
+                         {/* <Link
                               to={`/edit/${id}`}
                               state={{ stateId: id }}
                          >
                               <button> Edit </button>
-                         </Link>
+                         </Link> */}
                          <button onClick={handleConfirm}>
                               Delete
                          </button>
                     </div>
                </div>
 
-               <div className="content">
+               <div className="information">
 
                     {post && <PostOutput post={post} />}
                </div>

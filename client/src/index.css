@@ -84,8 +84,9 @@ input, textarea {
 }
 .formFields{
   width: 80%;
-  display: grid;
-  grid-template-columns: 50% 50%;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
   justify-content: center;
   padding: 2rem;
 }
@@ -93,7 +94,7 @@ input, textarea {
   width: 18rem;
 }
 .formFields textarea {
-  height: 5rem
+  height: 6rem
 }
 .signup, .login {
   width: 15rem;
@@ -129,7 +130,7 @@ input, textarea {
   flex-flow: column wrap;
   border-radius: 5px;
 }
-.content{
+.information{
   width: 80%;
   display: flex;
   padding: 1rem;
@@ -228,7 +229,7 @@ a:hover {
   .section{
     width: 100%;
   }
-  .content{
+  .information{
     width: 90%;
   }
   .postText{
@@ -279,7 +280,7 @@ a:hover {
   .section{
     width: 100%;
   }
-  .content{
+  .information{
     width: 90%;
     margin: auto;
     height: 30rem
@@ -351,7 +352,7 @@ a:hover {
   .postOutput{
     justify-content: center;
   }
-  .content{
+  .information{
     width: 90%;
     margin: auto;
     height: 50rem;
@@ -427,7 +428,7 @@ a:hover {
   .postOutput{
     justify-content: center;
   }
-  .content{
+  .information{
     width: 90%;
     margin: auto;
     height: 50rem;

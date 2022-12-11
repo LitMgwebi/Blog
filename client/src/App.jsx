@@ -4,7 +4,7 @@ import Home from "./pages/Home/Home";
 import List from "./pages/blog/List";
 import Record from "./pages/blog/Record";
 import Add from './pages/blog/Add';
-import Blog from './pages/Home/Blog';
+import Entry from './pages/Home/Entry';
 import Edit from './pages/blog/Edit';
 import Login from './pages/auth/Login';
 import Signup from './pages/auth/Signup';
@@ -35,9 +35,9 @@ function App() {
         <Header theme={switchTheme} imgIcon={theme}/>
         <Routes>
           <Route path="/" element={user ? <Navigate to="/list" /> : <Home />} />
-          <Route path="/:id" element={user ? <Navigate to="/list" /> : <Blog />} />
+          <Route path="/:id" element={user ? <Navigate to="/list" /> : <Entry />} />
           <Route path="/list" element={user ? <List /> : <Navigate to="/" />} />
-          <Route path="/list" element={<List />} />
+          {/* <Route path="/list" element={<List />} /> */}
           <Route path="/add" element={user ? <Add /> : <Navigate to="/" />} />
           <Route path="/record/:id" element={user ? <Record /> : <Navigate to="/" />} />
           <Route path="edit/:id" element={user ? <Edit /> : <Navigate to="/" />} />

@@ -1,22 +1,25 @@
 import { Schema, model } from "mongoose";
 
 interface IBlog {
-     title: string;
-     blog: string;
+     headline: string;
+     introduction: string;
+     conclusion: string;
+     subHeadline: string
+     content: string;
      uploadDate: Date;
      author: string;
-     tagline: string;
-     photo: string;
+     tag: string;
+     // photo: string;
      user_id: string;
 }
 
 const blogSchema = new Schema<IBlog>({
 
-     title: {
+     headline: {
           type: String,
           required: [true, "Please enter the title of this entry"]
      },
-     blog: {
+     content: {
           type: String,
           required: [true, "Please enter the blog for this entry"]
      },
@@ -27,13 +30,22 @@ const blogSchema = new Schema<IBlog>({
           type: String,
           required: [true, "Please enter the author for this entry"]
      },
-     tagline: {
+     tag: {
           type: String,
           required: [true, "Please enter the description for this entry"]
      },
-     photo: {
+     introduction: {
           type: String,
      },
+     subHeadline: {
+          type: String,
+     },
+     conclusion: {
+          type: String,
+     },
+     // photo: {
+     //      type: String,
+     // },
      user_id: {
           type: String,
           required: true,
