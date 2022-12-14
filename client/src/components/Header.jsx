@@ -2,6 +2,9 @@ import React from "react";
 import { useLogout } from "../hooks/useLogout";
 import { Link } from "react-router-dom"
 import { useAuthContext } from "../hooks/useAuthContext";
+import sun from "../icons/sun.svg";
+import moon from "../icons/moon.svg";
+
 
 function Header({ theme, imgIcon }) {
     const { logout } = useLogout();
@@ -17,8 +20,8 @@ function Header({ theme, imgIcon }) {
                     </Link>
                 </div>
                 <div className="headerButton">
-                    {imgIcon === "dark" ? <p onClick={theme}>Sun</p>
-                        : <p onClick={theme}>Night</p>}
+                {imgIcon === "dark" ? <img src={sun} onClick={theme} className="headerLogo" alt="theme"/> 
+                    : <img src={moon} onClick={theme} className="headerLogo" alt="theme"/>}
                 </div>
             </div>
             <div>

@@ -9,7 +9,7 @@ interface IBlog {
      uploadDate: Date;
      author: string;
      tag: string;
-     // photo: string;
+     photo: string;
      user_id: string;
 }
 
@@ -43,9 +43,9 @@ const blogSchema = new Schema<IBlog>({
      conclusion: {
           type: String,
      },
-     // photo: {
-     //      type: String,
-     // },
+     photo: {
+          type: String,
+     },
      user_id: {
           type: String,
           required: true,

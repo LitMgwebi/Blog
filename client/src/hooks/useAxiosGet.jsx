@@ -9,7 +9,7 @@ const GetOneSecured = (id) => {
     const [author, setAuthor] = useState("");
     const [uploadDate, setUploadDate] = useState("");
     const [tag, setTag] = useState("");
-    // const [photo, setPhoto] = useState("");
+    const [photo, setPhoto] = useState("");
     const [introduction, setIntroduction] = useState("");
     const [subHeadline, setSubHeadline] = useState("");
     const [conclusion, setConclusion] = useState("");
@@ -32,7 +32,7 @@ const GetOneSecured = (id) => {
                     setAuthor(res.data.blog.author);
                     setUploadDate(res.data.blog.uploadDate);
                     setTag(res.data.blog.tag);
-                    // setPhoto(res.data.blog.photo);
+                    setPhoto(res.data.blog.photo);
                     setIntroduction(res.data.blog.introduction);
                     setSubHeadline(res.data.blog.subHeadline);
                     setConclusion(res.data.blog.conclusion);
@@ -58,8 +58,8 @@ const GetOneSecured = (id) => {
         tag: tag,
         introduction: introduction,
         conclusion: conclusion,
-        subHeadline: headline,
-        // photo: photo,
+        subHeadline: subHeadline,
+        photo: photo,
         setHeadline: setHeadline,
         setAuthor: setAuthor,
         setContent: setContent,
@@ -68,7 +68,7 @@ const GetOneSecured = (id) => {
         setIntroduction: setIntroduction,
         setConclusion: setConclusion,
         setSubHeadline: setSubHeadline,
-        // setPhoto: setPhoto
+        setPhoto: setPhoto
     }
     return { post, isPending, error, setError, setIsPending }
 }
@@ -141,6 +141,7 @@ const GetOne = (id) => {
         uploadDate: "",
         author: "",
         tag: "",
+        photo: "",
         introduction: "",
         conclusion: "",
         subHeadline: "",
@@ -159,6 +160,7 @@ const GetOne = (id) => {
                 author: res.data.blog.author,
                 uploadDate: res.data.blog.uploadDate,
                 tag: res.data.blog.tag,
+                photo: res.data.blog.photo,
                 introduction: res.data.blog.introduction,
                 conclusion: res.data.blog.conclusion,
                 subHeadline: res.data.blog.subHeadline,

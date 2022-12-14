@@ -30,9 +30,9 @@ const blogSchema = new mongoose_1.Schema({
     conclusion: {
         type: String,
     },
-    // photo: {
-    //      type: String,
-    // },
+    photo: {
+        type: String,
+    },
     user_id: {
         type: String,
         required: true,

@@ -82,8 +82,7 @@ router.get("/record/:id", async (req: Request, res: Response) => {
 //#region POST
 
 router.post("/add", upload.single('photo'), async (req: Request, res: Response) => {
-    let blog: any
-    console.log(req.body)
+    let blog: any;
     try {
         blog = new Blog({
             headline: req.body.headline,
@@ -94,7 +93,7 @@ router.post("/add", upload.single('photo'), async (req: Request, res: Response) 
             introduction: req.body.introduction,
             conclusion: req.body.conclusion,
             subHeadline: req.body.subHeadline,
-            // photo: req.body.photo,
+            photo: req.file.filename,
             //@ts-ignore
             user_id: req.user._id
         });

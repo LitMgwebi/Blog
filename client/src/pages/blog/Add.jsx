@@ -5,7 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
 function Add() {
-    const currentDate = new Date().toLocaleDateString();
+    const currentDate = new Date().toUTCString();
     const navigate = useNavigate();
     const { user } = useAuthContext();
     const [error, setError] = useState(null)
@@ -15,6 +15,7 @@ function Add() {
     // const [author, setAuthor] = useState("");
     // const [uploadDate, setUploadDate] = useState("");
     const [tag, setTag] = useState("");
+    const [photo, setPhoto] = useState("");
     const [introduction, setIntroduction] = useState("");
     const [subHeadline, setSubHeadline] = useState("");
     const [conclusion, setConclusion] = useState("");
@@ -26,7 +27,7 @@ function Add() {
         formData.append('headline', headline);
         formData.append('content', content);
         formData.append('author', user.email);
-        // formData.append('photo', photo);
+        formData.append('photo', photo);
         formData.append('uploadDate', currentDate);
         formData.append('tag', tag);
         formData.append('introduction', introduction);
@@ -53,7 +54,7 @@ function Add() {
         navigate("/list");
     }
     return (
-        <form method="POST" id="ContentContainer" onSubmit={handleSubmit} encType='multipart/form-data'>
+        <form id="ContentContainer" onSubmit={handleSubmit} encType='multipart/form-data'>
             <div className="section">
                 {error && <div className="error">{error}</div>}
                 <h1>Create</h1>
@@ -75,7 +76,7 @@ function Add() {
                     </div>
 
                     <div className="subHeadlineInput">
-                        <label>Subheadline:</label>
+                        <label>Sub-headline:</label>
                         <input
                             type="text"
                             name="subHeadline"
@@ -120,7 +121,16 @@ function Add() {
                             onChange={(e) => setTag(e.target.value)}
                         />
                     </div>
-
+                    
+                    <div className="photoInput">
+                        <label>Photo:</label>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            name="photo"
+                            onChange={(e) => setPhoto(e.target.files[0])}
+                        />
+                    </div>
                     {/* <div className="authorInput">
                         <label>Author:</label>
                         <p>{user.email}</p>
@@ -130,17 +140,6 @@ function Add() {
                         <label>Date:</label>
                         <p>{currentDate}</p>
                     </div> */}
-
-                    {/* <div className="photoInput">
-                        <label>Photo:</label>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            name="photo"
-                            onChange={(e) => setPhoto(e.target.files[0])}
-                        />
-                    </div> */}
-
                 </div>
             </div>
         </form>
