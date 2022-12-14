@@ -6,10 +6,10 @@
   
 }
 [data-theme='dark'] {
-  --backgroundColor: #000000;
-  --primaryColour: #282A3A;
-  --secondaryColor: #735F32;
-  --textColour: #C69749;
+  --backgroundColor: #1B262C;
+  --primaryColour: #0F4C75;
+  --secondaryColor: #3282B8;
+  --textColour: #BBE1FA;
 }
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 html {
@@ -29,6 +29,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+label, p, h1, h2, h3, h4, h5, h6, button {
+  color: var(--textColour);
+}
 
 .App {
   display: flex;
@@ -36,6 +39,7 @@ code {
   text-align: center;
   align-items: center;
   height: 100vh;
+  overflow-y: scroll;
   width: 100vw;
   background-color: var(--backgroundColor);
 }
@@ -385,7 +389,8 @@ a:hover {
     margin: 1rem 0;
   }
   #Header {
-    height: 6rem;
+    /* height: 5rem; */
+    padding: 1rem 0;
   }
   #Footer {
     height: 5rem;
