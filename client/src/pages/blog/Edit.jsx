@@ -14,7 +14,7 @@ function Edit() {
 
     const { post, isPending, error, setError, setIsPending } = GetOneSecured(id);
 
-    const { headline, content, uploadDate, author, tag, introduction, conclusion, subHeadline, setHeadline, setAuthor, setContent, setUploadDate, setTag, setIntroduction, setConclusion, setSubHeadline } = post;
+    const { headline, content, tag, introduction, conclusion, subHeadline,photo, setPhoto, setHeadline, setContent, setTag, setIntroduction, setConclusion, setSubHeadline } = post;
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -22,7 +22,7 @@ function Edit() {
         formData.append('headline', headline);
         formData.append('content', content);
         formData.append('author', user.email);
-        // formData.append('photo', photo);
+        formData.append('photo', photo);
         formData.append('uploadDate', currentDate);
         formData.append('tag', tag);
         formData.append('introduction', introduction);
@@ -126,17 +126,7 @@ function Edit() {
                         />
                     </div>
 
-                    {/* <div className="authorInput">
-                        <label>Author:</label>
-                        <p>{user.email}</p>
-                    </div>
-
-                    <div className="dateInput">
-                        <label>Date:</label>
-                        <p>{currentDate}</p>
-                    </div> */}
-
-                    {/* <div className="photoInput">
+                    <div className="photoInput">
                         <label>Photo:</label>
                         <input
                             type="file"
@@ -144,8 +134,7 @@ function Edit() {
                             name="photo"
                             onChange={(e) => setPhoto(e.target.files[0])}
                         />
-                    </div> */}
-
+                    </div>
                 </div>
             </div>
         </form>

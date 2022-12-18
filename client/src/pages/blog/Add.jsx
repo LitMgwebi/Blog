@@ -131,15 +131,6 @@ function Add() {
                             onChange={(e) => setPhoto(e.target.files[0])}
                         />
                     </div>
-                    {/* <div className="authorInput">
-                        <label>Author:</label>
-                        <p>{user.email}</p>
-                    </div>
-
-                    <div className="dateInput">
-                        <label>Date:</label>
-                        <p>{currentDate}</p>
-                    </div> */}
                 </div>
             </div>
         </form>

@@ -96,33 +96,54 @@ router.post("/add", upload_1.default.single('photo'), async (req, res) => {
 //#endregion
 //#region PUT
 router.put('/edit/:id', upload_1.default.single('photo'), async (req, res) => {
-    const blog = {
-        title: req.body.title,
-        blog: req.body.blog,
-        uploadDate: req.body.uploadDate,
-        author: req.body.author,
-        tagline: req.body.tagline,
-        photo: req.body.photo,
-        //@ts-ignore
-        user_id: req.user._id
-    };
-    //@ts-ignore
-    await Blog_1.default.findOneAndUpdate(req.params.id, { $set: blog }, { new: true })
-        .then(post => {
-        res.status(201).send({
-            blog: blog,
-            error: null,
-            message: "Record edited successfully"
-        });
-    })
-        .catch(err => {
+    try {
+        let payload = Blog_1.default.findById(req.params.id);
+        const publicId = payload.public_id;
+        await (0, cloudinary_1.removeFromCloudinary)(publicId);
+    }
+    catch (err) {
         logging_1.default.error(err.message);
-        res.status(400).send({
-            blog: blog,
-            error: err.message,
-            message: "Could not edit record"
+        logging_1.default.error(`Cannot remove ${req.params.id}'s image from cloudinary`);
+    }
+    try {
+        const data = await (0, cloudinary_1.uploadToCloudinary)(req.file.path, "blog-images");
+        const blog = {
+            headline: req.body.headline,
+            content: req.body.content,
+            uploadDate: req.body.uploadDate,
+            author: req.body.author,
+            tag: req.body.tag,
+            introduction: req.body.introduction,
+            conclusion: req.body.conclusion,
+            subHeadline: req.body.subHeadline,
+            //@ts-ignore
+            photo: data.url,
+            //@ts-ignore
+            user_id: req.user._id,
+            //@ts-ignore
+            public_id: data.public_id,
+        };
+        //@ts-ignore
+        await Blog_1.default.findOneAndUpdate(req.params.id, { $set: blog }, { new: true })
+            .then(post => {
+            res.status(201).send({
+                blog: blog,
+                error: null,
+                message: "Record edited successfully"
+            });
+        })
+            .catch(err => {
+            logging_1.default.error(err.message);
+            res.status(400).send({
+                blog: blog,
+                error: err.message,
+                message: "Could not edit record"
+            });
         });
-    });
+    }
+    catch (err) {
+        logging_1.default.error(err.message);
+    }
 });
 //#endregion
 //#region DELETE
@@ -130,6 +151,8 @@ router.delete("/remove/:id", async (req, res) => {
     let blog = null;
     try {
         blog = await Blog_1.default.findById(req.params.id);
+        const publicId = blog.public_id;
+        await (0, cloudinary_1.removeFromCloudinary)(publicId);
         await blog.remove();
     }
     catch (err) {

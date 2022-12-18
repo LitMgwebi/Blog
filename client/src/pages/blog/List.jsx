@@ -13,9 +13,7 @@ function List() {
                 {isPending && <div>Loading...</div>}
                 <ProjectHeader header="Dashboard"/>
                 <div className="button-group">
-                    <button>
-                    <Link to="/add">Add</Link>
-                    </button>
+                    <button><Link to="/add">Add</Link></button>
                 </div>
             </div>
             <div className="information">

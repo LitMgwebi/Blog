@@ -65,7 +65,6 @@ router.post("/add", upload.single('photo'), async (req: Request, res: Response) 
     try {
         const data = await uploadToCloudinary(req.file.path, "blog-images")
 
-
         blog = new Blog({
             headline: req.body.headline,
             content: req.body.content,
@@ -104,55 +103,79 @@ router.post("/add", upload.single('photo'), async (req: Request, res: Response) 
 //#region PUT
 
 router.put('/edit/:id', upload.single('photo'), async (req: Request, res: Response) => {
-    const blog = {
-        title: req.body.title,
-        blog: req.body.blog,
-        uploadDate: req.body.uploadDate,
-        author: req.body.author,
-        tagline: req.body.tagline,
-        photo: req.body.photo,
+    try {
+        let payload: any = Blog.findById(req.params.id);
+        const publicId = payload.public_id;
+        await removeFromCloudinary(publicId)
+    } catch (err: any) {
+        log.error(err.message);
+        log.error(`Cannot remove ${req.params.id}'s image from cloudinary`);
+    }
+
+    try {
+        const data = await uploadToCloudinary(req.file.path, "blog-images");
+        const blog = {
+            headline: req.body.headline,
+            content: req.body.content,
+            uploadDate: req.body.uploadDate,
+            author: req.body.author,
+            tag: req.body.tag,
+            introduction: req.body.introduction,
+            conclusion: req.body.conclusion,
+            subHeadline: req.body.subHeadline,
+            //@ts-ignore
+            photo: data.url,
+            //@ts-ignore
+            user_id: req.user._id,
+            //@ts-ignore
+            public_id: data.public_id,
+        };
+
         //@ts-ignore
-        user_id: req.user._id
-    };
-    //@ts-ignore
-    await Blog.findOneAndUpdate(req.params.id, { $set: blog }, { new: true })
-        .then(post => {
-            res.status(201).send({
-                blog: blog,
-                error: null,
-                message: "Record edited successfully"
-            });
-        })
-        .catch(err => {
-            log.error(err.message);
-            res.status(400).send({
-                blog: blog,
-                error: err.message,
-                message: "Could not edit record"
-            });
+        await Blog.findOneAndUpdate(req.params.id, { $set: blog }, { new: true })
+            .then(post => {
+                res.status(201).send({
+                    blog: blog,
+                    error: null,
+                    message: "Record edited successfully"
+                });
+            })
+            .catch(err => {
+                log.error(err.message);
+                res.status(400).send({
+                    blog: blog,
+                    error: err.message,
+                    message: "Could not edit record"
+                });
 
+            });
+    } catch (err: any) {
+        log.error(err.message);
+    }
+
+});
+//#endregion
+
+
+//#region DELETE
+
+router.delete("/remove/:id", async (req: Request, res: Response) => {
+    let blog: any = null;
+    try {
+        blog = await Blog.findById(req.params.id);
+        const publicId = blog.public_id;
+        await removeFromCloudinary(publicId)
+        await blog.remove();
+    } catch (err: any) {
+        log.error(err.message)
+        res.status(400).send({
+            blog: blog,
+            error: err.message,
+            message: "Record retrieval failed"
         });
-    });
-    //#endregion
+    }
+});
+//#endregion
 
 
-    //#region DELETE
-
-    router.delete("/remove/:id", async (req: Request, res: Response) => {
-        let blog: any = null;
-        try {
-            blog = await Blog.findById(req.params.id);
-            await blog.remove();
-        } catch (err: any) {
-            log.error(err.message)
-            res.status(400).send({
-                blog: blog,
-                error: err.message,
-                message: "Record retrieval failed"
-            });
-        }
-    });
-    //#endregion
-
-
-    export default router;
+export default router;
