@@ -1,16 +1,20 @@
+//#region System Imports
 import { connect } from "mongoose";
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+import path from "path";
 require('dotenv').config();
+//#endregion
 
-//* Directory Imports
+//#region Directory Imports
 import log from "./config/logging";
 import indexRouter from "./Controllers/indexController";
 import blogRouter from "./Controllers/blogController";
 import userRouter from "./Controllers/userController";
+//#endregion
 
-//* Server setup
+//#region Server setup
 const port: any = process.env.PORT;
 const host: string = process.env.HOST;
 const dbURL: string = process.env.DBURL;
@@ -18,11 +22,32 @@ const dbURL: string = process.env.DBURL;
 const server = express();
 server.use(express.json());
 server.use(cors());
-server.use(express.static(__dirname + "/public"));
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
+//#endregion
 
-//* Database Setup
+//#region Routing
+server.use('/home', indexRouter);
+server.use('/blog', blogRouter);
+server.use('/user', userRouter);
+//#endregion
+
+//#region Connecting M.E.R.N
+server.use(express.static(path.join(__dirname, '../../client/build')));
+
+server.get("*", function(_, res){
+     res.sendFile(
+          path.join(__dirname, '../../client/build/index.html'),
+          function(err) {
+               if(err){
+                    res.status(500).send(err);
+               }
+          }
+     )
+})
+//#endregion
+
+//#region Database Setup
 connect(dbURL)
      .then(() => {
           log.info(`Connected to Database`);
@@ -33,8 +58,4 @@ connect(dbURL)
           log.error(err);
           process.exit(1);
      });
-
-//* Routing
-server.use('/home', indexRouter);
-server.use('/blog', blogRouter);
-server.use('/user', userRouter);
+//#endregion
