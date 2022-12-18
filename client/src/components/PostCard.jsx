@@ -13,7 +13,7 @@ function PostCard({ post, baseURL }) {
                 <CardMedia
                     component="img"
                     alt={post.title}
-                    image={`/media/${post.photo}`}
+                    image={post.photo}
                     className="cardMedia"
                 />
                 <CardContent className='cardContent'>

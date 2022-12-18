@@ -11,6 +11,7 @@ interface IBlog {
      tag: string;
      photo: string;
      user_id: string;
+     public_id: string;
 }
 
 const blogSchema = new Schema<IBlog>({
@@ -50,7 +51,10 @@ const blogSchema = new Schema<IBlog>({
           type: String,
           required: true,
      },
-});
+     public_id: {
+          type: String
+     }
+}, {timestamps: true});
 
 const Blog = model<IBlog>('Blog', blogSchema);
 

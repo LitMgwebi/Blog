@@ -7,7 +7,7 @@ function PostOutput({ post }) {
                     <h5 className="author">Written by: {post.author}</h5>
                 </div>
                 <div className="image">
-                    <img src={`/media/${post.photo}`} alt={post.title} />
+                    <img src={post.photo} alt={post.title} />
                 </div>
 
             </div>

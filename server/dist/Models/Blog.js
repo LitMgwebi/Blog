@@ -37,6 +37,9 @@ const blogSchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-});
+    public_id: {
+        type: String
+    }
+}, { timestamps: true });
 const Blog = (0, mongoose_1.model)('Blog', blogSchema);
 exports.default = Blog;

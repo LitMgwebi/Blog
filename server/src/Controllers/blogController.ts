@@ -2,34 +2,13 @@ import { Router, Request, Response } from "express";
 import log from "../config/logging";
 import Blog from "../Models/Blog";
 import requireAuth from "../middleware/requireAuth";
-import multer from "multer";
-import { v4 as uuidv4 } from "uuid";
-import path from "path";
+import upload from "../middleware/upload";
+import { uploadToCloudinary, removeFromCloudinary } from "../services/cloudinary";
 
 const router = Router();
 
 //require auth for all blog routes
 router.use(requireAuth);
-
-//#region Helper functions
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, '../client/public/media');
-    },
-    filename: function (req, file, cb) {
-        cb(null, uuidv4() + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
-const fileFilter = (req, file, cb) => {
-    const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-    if (allowedFileTypes.includes(file.mimetype)) {
-        cb(null, true);
-    } else {
-        cb(null, false);
-    }
-}
-let upload = multer({ storage, fileFilter });
-//#endregion
 
 //#region GET
 
@@ -84,6 +63,9 @@ router.get("/record/:id", async (req: Request, res: Response) => {
 router.post("/add", upload.single('photo'), async (req: Request, res: Response) => {
     let blog: any;
     try {
+        const data = await uploadToCloudinary(req.file.path, "blog-images")
+
+
         blog = new Blog({
             headline: req.body.headline,
             content: req.body.content,
@@ -93,9 +75,12 @@ router.post("/add", upload.single('photo'), async (req: Request, res: Response) 
             introduction: req.body.introduction,
             conclusion: req.body.conclusion,
             subHeadline: req.body.subHeadline,
-            photo: req.file.filename,
             //@ts-ignore
-            user_id: req.user._id
+            photo: data.url,
+            //@ts-ignore
+            user_id: req.user._id,
+            //@ts-ignore
+            public_id: data.public_id,
         });
         await blog.save();
         res.status(201).send({
