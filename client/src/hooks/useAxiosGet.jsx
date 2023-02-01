@@ -22,7 +22,7 @@ const GetOneSecured = (id) => {
             if (user) {
                 axios({
                     method: "GET",
-                    url: `http://localhost:4050/blog/record/${id}`,
+                    url: `https://discount-twitter-api.onrender.com:4050/blog/record/${id}`,
                     headers: {
                         'Authorization': `Bearer ${user.token}`
                     }
@@ -84,7 +84,7 @@ const GetAllSecured = () => {
         if (user) {
             axios({
                 method: "GET",
-                url: "http://localhost:4050/blog/list",
+                url: "https://discount-twitter-api.onrender.com:4050/blog/list",
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }
@@ -115,7 +115,7 @@ const GetAll = () => {
     useEffect(() => {
         axios({
             method: "GET",
-            url: "http://localhost:4050/home/",
+            url: "https://discount-twitter-api.onrender.com:4050/home/",
         }).then((res) => {
             if (res.data.error != null) {
                     log.error(res.data.error);
@@ -152,7 +152,7 @@ const GetOne = (id) => {
     useEffect(() => {
         axios({
             method: "GET",
-            url: `http://localhost:4050/home/${id}`,
+            url: `https://discount-twitter-api.onrender.com:4050/home/${id}`,
         }).then((res) => {
             const updatedPost = {
                 headline: res.data.blog.headline,

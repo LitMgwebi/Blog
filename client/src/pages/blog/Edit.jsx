@@ -30,7 +30,7 @@ function Edit() {
         formData.append('conclusion', conclusion);
         axios({
             method: 'PUT',
-            url: `http://localhost:4050/blog/edit/${id}`,
+            url: `https://discount-twitter-api.onrender.com:4050/blog/edit/${id}`,
             data: formData,
             headers: {
                 'accept': 'application/json',
