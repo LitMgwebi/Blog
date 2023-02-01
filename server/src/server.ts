@@ -12,6 +12,7 @@ import log from "./config/logging";
 import indexRouter from "./Controllers/indexController";
 import blogRouter from "./Controllers/blogController";
 import userRouter from "./Controllers/userController";
+import corsOptions from "./config/corsOptions";
 //#endregion
 
 //#region Server setup
@@ -21,7 +22,7 @@ const dbURL: string = process.env.DBURL;
 
 const server = express();
 server.use(express.json());
-server.use(cors());
+server.use(cors(corsOptions));
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 //#endregion
@@ -52,7 +53,7 @@ connect(dbURL)
      .then(() => {
           log.info(`Connected to Database`);
           server.listen(port, host, () => {
-               log.info(`Server listening at http://${host}:${port}`);
+               log.info(`Server running on: ${port}`);
           })
      }).catch((err: Error) => {
           log.error(err);
