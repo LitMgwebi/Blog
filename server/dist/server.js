@@ -20,7 +20,6 @@ const corsOptions_1 = __importDefault(require("./config/corsOptions"));
 //#endregion
 //#region Server setup
 const port = process.env.PORT;
-const host = process.env.HOST;
 const dbURL = process.env.DBURL;
 const server = (0, express_1.default)();
 server.use(express_1.default.json());
@@ -35,24 +34,22 @@ server.use('/user', userController_1.default);
 //#endregion
 //#region Connecting M.E.R.N
 server.use(express_1.default.static(path_1.default.join(__dirname, '../../client/build')));
-server.all('*', (req, res) => {
-    res.status(404);
-    if (req.accepts('html')) {
-        res.sendFile(path_1.default.join(__dirname, 'views', '404.html'));
-    }
-    else if (req.accepts('json')) {
-        res.json({ message: '404 Not Found' });
-    }
-    else {
-        res.type('txt').send('404 Not Found');
-    }
-});
+// server.all('*', (req, res) => {
+//      res.status(404)
+//      if (req.accepts('html')) {
+//          res.sendFile(path.join(__dirname, 'views', '404.html'))
+//      } else if (req.accepts('json')) {
+//          res.json({ message: '404 Not Found' })
+//      } else {
+//          res.type('txt').send('404 Not Found')
+//      }
+//  })
 //#endregion
 //#region Database Setup
 (0, mongoose_1.connect)(dbURL)
     .then(() => {
     logging_1.default.info(`Connected to Database`);
-    server.listen(port, host, () => {
+    server.listen(port, () => {
         logging_1.default.info(`Server running on: ${port}`);
     });
 }).catch((err) => {
