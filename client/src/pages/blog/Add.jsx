@@ -37,7 +37,7 @@ function Add() {
         // console.log(blog, tagline, photo, author, currentDate, tagline)
         axios({
             method: "POST",
-            url: "https://discount-twitter-api.onrender.com:4050/blog/add",
+            url: "https://discount-twitter-api.onrender.com/blog/add",
             data: formData,
             headers: {
                 'accept': 'application/json',

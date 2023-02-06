@@ -17,7 +17,7 @@ export const useSignup = () => {
 
         axios({
             method: 'POST',
-            url: 'https://discount-twitter-api.onrender.com:4050/user/signup',
+            url: 'https://discount-twitter-api.onrender.com/user/signup',
             data: userData,
             headers: {
                 'Content-Type': 'application/json'

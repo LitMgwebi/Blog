@@ -26,7 +26,7 @@ function Record() {
           }
           axios({
                method: "DELETE",
-               url: `https://discount-twitter-api.onrender.com:4050/blog/remove/${id}`,
+               url: `https://discount-twitter-api.onrender.com/blog/remove/${id}`,
                headers: {
                     'Authorization': `Bearer ${user.token}`
                }
