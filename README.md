@@ -4,7 +4,7 @@
  ## Project Overview
 
   ### Description
-Welcome to my dynamic and responsive M.E.R.N API-powered blog web platform! Here, users can easily log in to share their thoughts through personalized blogs, complete with the option to delete as needed. My advanced cookie authorization and authentication system ensures the security of every piece while also allowing non-authorized users to explore the diverse range of content available. Join me in this inclusive community, where creativity thrives and connections are made through the power of blogging.
+Welcome to my vibrant blog platform! Crafted with the cutting-edge M.E.R.N framework, this platform boasts a Typescript-driven ExpressJS server, leveraging the robust foundation of NodeJS. Seamlessly, users can log in to express their thoughts via personalized blogs, with the added convenience of deletion options. Ensuring utmost security, my sophisticated cookie authorization and authentication system, powered by JSONWebTokens, safeguards every contribution while also welcoming non-authorized users to explore a diverse array of content. The sleek aesthetic is achieved through a React app that securely transmits data from client to server using Axios and CORS. Come be part of this inclusive community where creativity flourishes, and meaningful connections are forged through the art of blogging.
 
   ### Project Structure
 ```
