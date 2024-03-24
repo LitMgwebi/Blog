@@ -1,8 +1,7 @@
 # Blog
 ![React Badge](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=000&style=plastic) ![Node.js Badge](https://img.shields.io/badge/Node.js-393?logo=nodedotjs&logoColor=fff&style=plastic) ![JSON Web Tokens Badge](https://img.shields.io/badge/JSON%20Web%20Tokens-000?logo=jsonwebtokens&logoColor=fff&style=plastic) ![Mongoose Badge](https://img.shields.io/badge/Mongoose-800?logo=mongoose&logoColor=fff&style=plastic) ![MongoDB Badge](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=fff&style=plastic) ![.ENV Badge](https://img.shields.io/badge/.ENV-ECD53F?logo=dotenv&logoColor=000&style=plastic) ![TypeScript Badge](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff&style=plastic) ![Axios Badge](https://img.shields.io/badge/Axios-5A29E4?logo=axios&logoColor=fff&style=plastic) ![React Router Badge](https://img.shields.io/badge/React%20Router-CA4245?logo=reactrouter&logoColor=fff&style=plastic)
 
-<details>
-  <summary>Project Overview</summary>
+ ## Project Overview
 
   ### Description
 Welcome to my dynamic and responsive M.E.R.N API-powered blog web platform! Here, users can easily log in to share their thoughts through personalized blogs, complete with the option to delete as needed. My advanced cookie authorization and authentication system ensures the security of every piece while also allowing non-authorized users to explore the diverse range of content available. Join me in this inclusive community, where creativity thrives and connections are made through the power of blogging.
@@ -25,11 +24,7 @@ Welcome to my dynamic and responsive M.E.R.N API-powered blog web platform! Here
 |  |--src
 |  |  |--server.ts
 ```
-</details>
-
-<details>
-  <summary>Requirements</summary>
-  
+## Requirements  
   ### Prerequisites
     - Node
     - NPM
@@ -55,10 +50,4 @@ Welcome to my dynamic and responsive M.E.R.N API-powered blog web platform! Here
   | | "react-scripts": "5.0.1" |
   | | "use-local-storage": "^2.3.6" |
   | | "web-vitals": "^2.1.4" |    
-</details>
 
-<details>
-  <summary>Project</summary>
-  
-  ### Screenshots & Description
-</details>
